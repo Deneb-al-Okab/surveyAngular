@@ -10,13 +10,14 @@ import {DialogTemplateComponent} from "../dialog-template/dialog-template.compon
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   login(){
-
+    //logiche di business
+    this.router.navigateByUrl('/home-user');
   }
 
 }

@@ -1,11 +1,19 @@
 <form>
-<div class="center">
-  <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="your email" id="username" required> <br>
-  <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="password" id="password" required> <br>
-  <p id="error" style="color: red;" ></p>
-  <hr>
-  <p>You are not a member of this community? Go to home and click SIGN UP! </p>
-</div>
+  <h2 mat-dialog-title>LOGIN</h2>
+  <mat-dialog-content class="mat-typography">
+    <div class="center">
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="your email" id="username" required> <br>
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="password" id="password" required> <br>
+      <p id="error" style="color: red;" ></p>
+      <hr>
+      <p>You are not a member of this community? Go to home and click SIGN UP! </p>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button  class="activebutton" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="login()">LOGIN</button>
+    <button class="cancelbtn" mat-button mat-dialog-close>CLOSE</button>
+  </mat-dialog-actions>
+
 </form>
