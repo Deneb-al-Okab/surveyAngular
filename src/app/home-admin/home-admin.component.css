@@ -1,0 +1,16 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+table{
+  width: 100%;
+  position: center;
+}
+
+.center {
+  margin: auto;
+  width: 80%;
+//border: 3px solid #440069;
+  padding: 10px;
+}

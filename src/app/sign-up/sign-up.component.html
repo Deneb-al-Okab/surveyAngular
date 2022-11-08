@@ -1,0 +1,26 @@
+<form>
+  <div class="center">
+    <p>Please fill in this form to create an account.</p>
+    <hr>
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" id="email" required> <br>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" id="psw" required> <br>
+
+    <label for="psw-repeat"><b>Repeat Password</b></label>
+    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required> <br>
+    <hr>
+
+    <h4>Became PREMIUM (<a href="">read all the advantages</a>)!</h4>
+    <input type="radio" [(ngModel)]="adm.flag" id="admYes" name="premium_rb" value="1" required>
+    <label for="admYes">Yes!</label><br>
+    <input type="radio" [(ngModel)]="adm.flag" id="admNo" name="premium_rb" value="0" required>
+    <label for="admNo">No, thanks!</label><br>
+    <hr>
+    <p>By creating an account you agree to our <a href="">Terms & Privacy</a>.</p>
+    <hr>
+    <p>Already have an account? Go to home and login! </p>
+  </div>
+
+</form>
