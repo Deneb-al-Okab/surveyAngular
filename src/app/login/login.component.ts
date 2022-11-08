@@ -19,5 +19,4 @@ export class LoginComponent implements OnInit {
     //logiche di business
     this.router.navigateByUrl('/home-user');
   }
-
 }
