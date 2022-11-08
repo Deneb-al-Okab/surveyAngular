@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogTemplateComponent } from "./dialog-template/dialog-template.component";
+import {SignUpComponent} from "./sign-up/sign-up.component";
+import {LoginComponent} from "./login/login.component";
 
 @Component({
   selector: 'app-root',
@@ -21,7 +23,7 @@ export class AppComponent {
     config.width        = "650px";
     config.data         = {title: "LOGIN", component: 'login'};
 
-    const dialogRef = this.dialog.open(DialogTemplateComponent,config);
+    const dialogRef = this.dialog.open(LoginComponent,config);
   }
 
   openSignUP() {
@@ -33,7 +35,7 @@ export class AppComponent {
     config.width        = "650px";
     config.data         = {title: 'SIGN-UP', component: 'sign-up'};
 
-    const dialogRef = this.dialog.open(DialogTemplateComponent,config);
+    const dialogRef = this.dialog.open(SignUpComponent,config);
   }
 }
 
