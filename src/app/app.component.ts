@@ -29,7 +29,7 @@ export class AppComponent {
 
     config.disableClose = true;
     config.id           = "sign-up-component";
-    config.height       = "550px";
+    config.height       = "750px";
     config.width        = "650px";
     config.data         = {title: 'SIGN-UP', component: 'sign-up'};
 

@@ -5,6 +5,7 @@ import {SignUpComponent} from "./sign-up/sign-up.component";
 import {HomeComponent} from "./home/home.component";
 import {HomeUserComponent} from "./home-user/home-user.component";
 import {HomeAdminComponent} from "./home-admin/home-admin.component";
+import {CreateSurveyComponent} from "./create-survey/create-survey.component";
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -12,11 +13,13 @@ const routes: Routes = [
   {path: 'home', component:HomeComponent},
   {path: 'home-user', component:HomeUserComponent},
   {path: 'home-admin', component:HomeAdminComponent},
-  { path: '', redirectTo: '/home', pathMatch: 'full'}
+  { path: '', redirectTo: '/home', pathMatch: 'full'},
+  {path: 'create-survey', component: CreateSurveyComponent},
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

@@ -14,7 +14,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogTemplateComponent } from './dialog-template/dialog-template.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from "@angular/material/button";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { CreateSurveyComponent } from './create-survey/create-survey.component';
+import {MatStepperModule} from "@angular/material/stepper";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -24,7 +29,8 @@ import {FormsModule} from "@angular/forms";
     HomeComponent,
     HomeUserComponent,
     HomeAdminComponent,
-    DialogTemplateComponent
+    DialogTemplateComponent,
+    CreateSurveyComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +39,11 @@ import {FormsModule} from "@angular/forms";
     MatDialogModule,
     MatButtonModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

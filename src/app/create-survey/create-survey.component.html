@@ -1,0 +1,67 @@
+<!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">-->
+<!--  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}-->
+<!--</button>-->
+<mat-stepper orientation="vertical" [linear]="false" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Choose a category</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Category</mat-label>
+        <mat-select>
+          <mat-option value="one">First option</mat-option>
+          <mat-option value="two">Second option</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Name your survey</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Title" formControlName="firstCtrl" required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Describe your survey</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Textarea</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Scegli le domande</ng-template>
+      <mat-form-field appearance="fill">
+        <mat-label>Textarea</mat-label>
+        <textarea matInput></textarea>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Submit</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button >SUBMIT</button>
+    </div>
+  </mat-step>
+</mat-stepper>
