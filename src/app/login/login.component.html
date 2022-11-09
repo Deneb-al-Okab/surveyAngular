@@ -1,19 +1,34 @@
-<form [formGroup]="form">
-  <h2 mat-dialog-title>LOGIN</h2>
-  <mat-dialog-content class="mat-typography">
-    <div class="center">
-      <label for="username"><b>Username</b></label>
-      <input type="text" placeholder="your email" id="username" required> <br>
-      <label for="password"><b>Password</b></label>
-      <input type="password" placeholder="password" id="password" required> <br>
-      <p id="error" style="color: red;" ></p>
-      <hr>
-      <p>You are not a member of this community? Go to home and click SIGN UP! </p>
-    </div>
-  </mat-dialog-content>
-  <mat-dialog-actions align="end">
-    <button  class="activebutton" mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="login()">LOGIN</button>
-    <button class="cancelbtn" mat-button mat-dialog-close>CLOSE</button>
-  </mat-dialog-actions>
+<div class="full-page">
+  <mat-dialog-content >
 
-</form>
+    <mat-card >
+
+      <mat-error class="login-error">{{ this.error }}</mat-error>
+
+      <form [formGroup]="form">
+        <mat-card-content>
+
+          <mat-form-field class="login-field">
+            <input matInput type="text" placeholder="Your Email" formControlName="mail" onInput="this.value = this.value.toLowerCase()">
+            <mat-error *ngIf="hasError('mail', 'required')">Email required</mat-error>
+          </mat-form-field>
+          <mat-form-field class="login-field">
+            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="La tua password" formControlName="pass"/>
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            <mat-error *ngIf="hasError('pass', 'required')">Password obbligatoria</mat-error>
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-dialog-actions align="end">
+          <button mat-raised-button class="activebutton" color="primary" (click)="login()" [disabled]="!form.valid">CONFERMA</button>
+          <button mat-raised-button class="cancelbtn" color="basic"  (click)="close()">CHIUDI</button>
+
+        </mat-dialog-actions>
+
+      </form>
+
+    </mat-card>
+  </mat-dialog-content>
+
+
+</div>

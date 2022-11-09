@@ -24,17 +24,30 @@ export class LoginComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void{
     this.form = new FormGroup({
       mail: new FormControl('', [Validators.required]),
       pass: new FormControl('', [Validators.required])
     });
   }
 
-  login(){
+  public async login(){
+    this.error = "";
 
-    //logiche di business
-
+    await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/login', 'POST', this.form.value)
+      .then((res) => {
+        this.dialogRef.close(res);
+      }).catch((err) => {
+        console.log(err);
+        this.error = "Not Known User";
+      });
   }
 
+  public close() {
+    this.dialogRef.close("login-ko");
+  }
+
+  public hasError(controlName: string, errorName: string): boolean {
+    return this.form.controls[controlName].hasError(errorName);
+  }
 }

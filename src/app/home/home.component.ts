@@ -14,24 +14,38 @@ export class HomeComponent implements OnInit {
   constructor(public dialog: MatDialog, private router: Router) {
   }
 
-  openLogin() {
+  openLogin(){
     const config = new MatDialogConfig();
 
     config.disableClose = true;
-    config.id = "login-component";
-    config.height = "500px";
-    config.width = "650px";
-    config.data = {title: "LOGIN", component: 'login'};
+    config.id           = "login-component";
+    config.height       = "500px";
+    config.width        = "650px";
+    config.data         = {title: "LOGIN", component: 'login'};
 
-    const dialogRef = this.dialog.open(LoginComponent, config);
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {//divisione tra admin e user
-        this.router.navigateByUrl('/home-user');
-      }
-      else{
+    const dialogRef = this.dialog.open(LoginComponent,config);
 
+    dialogRef.afterClosed().subscribe((result) =>{
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          "mail":    result.mail
+        },
+        skipLocationChange: false
+      };
+      if (result.isAdmin == 0){
+        this.router.navigate(
+          ['/home-user'],
+          navigationExtras
+        )
       }
-    })
+      else if (result.isAdmin == 1){
+        // this.router.navigateByUrl("/home-admin");
+        this.router.navigate(
+          ['/home-admin'],
+          navigationExtras
+        );
+      }
+    });
   }
 
   openSignUP() {

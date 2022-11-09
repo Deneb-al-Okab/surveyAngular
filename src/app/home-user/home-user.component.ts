@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {RestApiService} from "../services/rest-api.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-user',
@@ -9,20 +9,22 @@ import {Router} from "@angular/router";
 })
 export class HomeUserComponent implements OnInit {
 
-  constructor(private router: Router, private ras: RestApiService) { }
+  public mail: string="";
+
+  constructor(private router: Router, private ras: RestApiService, private route: ActivatedRoute) { }
   public error:           string  = "";
   public response: any;
 
     ngOnInit(): void {
-    // this.form = new FormGroup({
-    //   // mail: new FormControl('', [Validators.required]),
-    //   // pass: new FormControl('', [Validators.required])
-    // });
-    this.getAllCategories();
+      this.route.queryParams.subscribe(params=>{
+        this.mail = params["mail"];
+        });
+
+      this.getAllSurveys();
   }
 
 
-  public async getAllCategories() {
+  public async getAllSurveys() {
     this.error = "";
 
     await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/surveys', 'GET',null)
@@ -30,7 +32,7 @@ export class HomeUserComponent implements OnInit {
         console.log(res);
         this.response = res;
       }).catch((err) => {
-        this.error = "Qualcosa è andato storto ";
+        this.error = "Something went WRONG!!";
       });
   }
 
