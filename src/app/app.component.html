@@ -1,17 +1,19 @@
 <header>
-  <h1>WELCOME TO SURVEY!</h1>
-  <nav id = "mybutton">
-    <button class="button" mat-stroked-button (click)="openLogin()">LOGIN</button>
-    <button class="button" mat-stroked-button (click)="openSignUP()">SIGN UP</button>
-  </nav>
-  <a id= "home" class="button" routerLink="/home" routerLinkActive="active">Home</a>
+  <h1>WELCOME TO SurHEY!</h1>
+<!--  <nav id = "mybutton">-->
+<!--    <button class="button" mat-stroked-button (click)="openLogin()" *ngIf = "this.isButtonLogVisible">LOGIN</button>-->
+<!--    <button class="button" mat-stroked-button (click)="openSignUP()" *ngIf = "this.isButtonSignVisible">SIGN UP</button>-->
+<!--    <button class="button" mat-stroked-button (click)="logout()" *ngIf = "this.isButtonOutVisible">LOGOUT</button>-->
+<!--  </nav>
+  <a id= "home" class="button" routerLink="/home" routerLinkActive="active" *ngIf = "this.isButtonHomeVisible">Home</a>
+  -->
 </header>
 
 <router-outlet></router-outlet>
 
 <footer>
   <hr>
-  <h3>Ecit Academy, gabriele.galizzi@ecit.it</h3>
+  <h3>Ecit Academy, le_nostre_mail@ecit.it</h3>
 </footer>
 
 

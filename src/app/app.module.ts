@@ -21,6 +21,10 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatIconModule} from "@angular/material/icon";
+import {MatRadioModule} from "@angular/material/radio";
+import{HttpClientModule} from "@angular/common/http";
+import {MatCardModule} from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -46,7 +50,10 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
-
+    MatIconModule,
+    MatRadioModule,
+    HttpClientModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material/dialog";
 import {DialogTemplateComponent} from "../dialog-template/dialog-template.component";
 import {Router} from "@angular/router";
+import {FormControl, FormGroup, RadioControlValueAccessor, Validators} from "@angular/forms";
+import {RestApiService} from "../services/rest-api.service";
+import {MatRadioGroup} from "@angular/material/radio";
 
 @Component({
   selector: 'app-sign-up',
@@ -9,25 +12,38 @@ import {Router} from "@angular/router";
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent implements OnInit {
-  adm = {flag : 0};
+  public form!:           FormGroup;
+  public error:           string  = "";
+  public hidePassword:    boolean = true;
 
-  constructor(public dialog: MatDialog, private router: Router) { }
+  constructor(public dialogRef: MatDialogRef<SignUpComponent>,
+              private router: Router,
+              private ras: RestApiService) { }
 
   ngOnInit(): void {
+    this.form = new FormGroup({
+      mail: new FormControl('', [Validators.required]),
+      pass: new FormControl('', [Validators.required]),
+      isAdmin: new FormControl('', [Validators.required])
+    });
   }
 
-  getCheckBox(){
-    let flag = this.adm.flag;
-    return flag;
-  }
-
-  signUP(flag: number){
-    if (flag == 0){
-      this.router.navigateByUrl('/home-user');
+  public async signUP() {
+    this.error = "";
+    await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/sign-up', 'POST', this.form.value)
+        .then((res) => {
+          this.dialogRef.close(res);
+        }).catch((err) => {
+          this.error = "Already subscribed";
+        });
     }
-    else {
-      this.router.navigateByUrl('/home-admin');
-    }
+
+  close() {
+    this.dialogRef.close("login-ko");
+
   }
 
+  public hasError(controlName: string, errorName: string): boolean {
+    return this.form.controls[controlName].hasError(errorName);
+  }
 }
