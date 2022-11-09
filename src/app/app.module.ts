@@ -25,10 +25,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatCardModule} from "@angular/material/card";
 import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
-import {MatIconModule} from "@angular/material/icon";
 import {MatRadioModule} from "@angular/material/radio";
-import{HttpClientModule} from "@angular/common/http";
-import {MatCardModule} from "@angular/material/card";
 import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({

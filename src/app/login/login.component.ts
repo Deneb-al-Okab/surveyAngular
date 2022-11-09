@@ -4,10 +4,9 @@ import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material/dialog
 import {DialogTemplateComponent} from "../dialog-template/dialog-template.component";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RestApiService } from "../services/rest-api.service";
-import {MatDialogRef} from "@angular/material/dialog";
 import{AppComponent} from "../app.component";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {RestApiService} from "../services/rest-api.service";
+
+
 
 @Component({
   selector: 'app-login',
