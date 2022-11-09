@@ -22,6 +22,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import { HttpClientModule, HttpHeaders   } from "@angular/common/http";
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { HttpClientModule, HttpHeaders   } from "@angular/common/http";
     MatSelectModule,
     MatDatepickerModule,
     HttpClientModule,
+    MatNativeDateModule,
 
   ],
   providers: [],

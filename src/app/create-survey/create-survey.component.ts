@@ -11,6 +11,7 @@ import {RestApiService} from "../services/rest-api.service";
  export class CreateSurveyComponent implements OnInit {
   // public form!:           FormGroup;
   public error:           string  = "";
+  public response: any;
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
@@ -25,6 +26,7 @@ import {RestApiService} from "../services/rest-api.service";
     //   // mail: new FormControl('', [Validators.required]),
     //   // pass: new FormControl('', [Validators.required])
     // });
+    this.getAllCategories();
   }
 
 
@@ -34,6 +36,8 @@ public async getAllCategories() {
     await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/categories', 'GET',null)
       .then((res) => {
         console.log(res[0].name);
+        this.response = res;
+        console.log(this.response[0].name);
       }).catch((err) => {
 
         this.error = "Qualcosa è andato storto ";
