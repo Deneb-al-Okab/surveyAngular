@@ -3,7 +3,6 @@ import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {LoginComponent} from "../login/login.component";
 import {SignUpComponent} from "../sign-up/sign-up.component";
 import {NavigationExtras, Router} from "@angular/router";
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -12,6 +11,41 @@ import {NavigationExtras, Router} from "@angular/router";
 export class HomeComponent implements OnInit {
   // loggedUser !: { userMail: "mail"; userPass: "pass"; userAdm: "isAdmin"; }
   constructor(public dialog: MatDialog,private router: Router) { }
+
+  openSignUP() {
+
+    const config = new MatDialogConfig();
+
+    config.disableClose = true;
+    config.id           = "sign-up-component";
+    config.height       = "500px";
+    config.width        = "650px";
+    config.data         = {title: 'SIGN-UP', component: 'sign-up'};
+
+    const dialogRef = this.dialog.open(SignUpComponent,config);
+    //mi registro all'evento chiusura della dialog e faccio delle azioni (routing se ok)
+    dialogRef.afterClosed().subscribe((result) => {
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          "mail":   result.mail,
+        },
+        skipLocationChange: true
+      };
+
+      if (result.isAdmin == 0) {
+        this.router.navigate(
+          ['/home-user'],
+          navigationExtras
+        );
+      }
+      else if (result.isAdmin == 1){
+        this.router.navigate(
+          ['/home-admin'],
+          navigationExtras
+        );
+      }
+    })
+  }
 
   ngOnInit(): void {
   }
@@ -52,17 +86,5 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  openSignUP(){
-    const config = new MatDialogConfig();
-
-    config.disableClose = true;
-    config.id           = "sign-up-component";
-    config.height       = "750px";
-    config.width        = "650px";
-    config.data         = {title: 'SIGN-UP', component: 'sign-up'};
-
-    const dialogRef = this.dialog.open(SignUpComponent,config);
-    dialogRef.afterClosed().subscribe((result) =>{console.log(result);});
-  }
 
 }

@@ -4,3 +4,84 @@
 //border: 3px solid #440069;
   padding: 10px;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+p {
+  margin: 0;
+}
+
+
+.spacer {
+  flex: 1;
+}
+
+.container {
+  position: center;
+  border: 3px #440069;
+}
+
+.button {
+  box-shadow: inset 0 1px 0 0 #FCC6FF;
+  background: #F78EFD linear-gradient(to bottom, #C78EFD 5%, #B129FE 100%);
+  border-radius: 6px;
+  border: 1px solid #580E81;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  outline: 0;
+}
+
+.activebutton {
+  box-shadow: inset 0 1px 0 0 #dcecfb;
+  background: #bddbfa linear-gradient(to bottom, #bddbfa 5%, #6E57BB 100%);
+  border: 1px solid #6E57BB;
+  color: #000000;
+  text-shadow: 0 1px 0 #528ecc;
+}
+
+#mybutton {
+  position: absolute;
+  top: 0;
+  right: 50px;
+}
+
+#home{
+  position: absolute;
+  top: 0;
+  left: 20px;
+}
+
+/* Style the header */
+header {
+  position: fixed;
+  width: 100%;
+  top:0;
+  background-color: #BAA5FF;
+  padding: 20px;
+  text-align: center;
+  font-size: 17px;
+  color: white;
+}
+
+/* Style the footer */
+footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #A68AFF;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}

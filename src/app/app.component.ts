@@ -12,7 +12,9 @@ import {Router} from "@angular/router";
 })
 export class AppComponent {
   title = 'surveyAngular';
-  constructor(public dialog: MatDialog, private router: Router) { }
+  constructor(public dialog: MatDialog, private router: Router) {
+
+  }
 }
 
 

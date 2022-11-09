@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
-import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig, MatDialogRef} from "@angular/material/dialog";
 import {DialogTemplateComponent} from "../dialog-template/dialog-template.component";
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RestApiService } from "../services/rest-api.service";
 import {MatDialogRef} from "@angular/material/dialog";
+import{AppComponent} from "../app.component";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {RestApiService} from "../services/rest-api.service";
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public isButtonLogVisible = true;
-  public isButtonSignVisible = true;
 
   public form!:           FormGroup;
   public error:           string  = "";
