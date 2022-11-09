@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { RouterModule } from '@angular/router';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -21,6 +22,9 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatCardModule} from "@angular/material/card";
+import {MatIconModule} from "@angular/material/icon";
+import {HttpClientModule} from "@angular/common/http";
 import {MatIconModule} from "@angular/material/icon";
 import {MatRadioModule} from "@angular/material/radio";
 import{HttpClientModule} from "@angular/common/http";
@@ -51,10 +55,10 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatIconModule,
-    MatRadioModule,
-    HttpClientModule,
     MatCardModule,
+    MatIconModule,
+    HttpClientModule,
+    MatRadioModule,
     MatNativeDateModule,
 
   ],

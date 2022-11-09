@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
 import {Router} from "@angular/router";
 
 @Component({
@@ -8,13 +9,13 @@ import {Router} from "@angular/router";
 })
 export class HomeAdminComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
   }
 
-  logout() {
-    this.router.navigateByUrl('');
+  logout(){
+    this.router.navigateByUrl("/home")
   }
 
 }
