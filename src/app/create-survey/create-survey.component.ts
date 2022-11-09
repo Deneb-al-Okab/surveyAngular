@@ -15,7 +15,6 @@ import {RestApiService} from "../services/rest-api.service";
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
-  private scope: any;
 
   constructor(private _formBuilder: FormBuilder,
               private ras: RestApiService) {
