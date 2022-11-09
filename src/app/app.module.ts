@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
@@ -21,6 +21,7 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { HttpClientModule, HttpHeaders   } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     MatInputModule,
     MatSelectModule,
     MatDatepickerModule,
+    HttpClientModule,
 
   ],
   providers: [],
