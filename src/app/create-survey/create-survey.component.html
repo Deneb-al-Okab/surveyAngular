@@ -7,9 +7,10 @@
       <ng-template matStepLabel>Choose a category</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Category</mat-label>
-        <mat-select>
-          <mat-option >First option</mat-option>
-          <mat-option >Second option</mat-option>
+        <mat-select >
+          <ng-container *ngFor="let resp of this.response">
+          <mat-option value="{{resp.id}}">{{resp.name}}</mat-option>
+          </ng-container>
         </mat-select>
       </mat-form-field>
       <div>
@@ -29,8 +30,8 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Describe your survey</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Textarea</mat-label>
@@ -42,24 +43,26 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Set start and stop time</ng-template>
-<!--      <mat-form-field appearance="fill">-->
-<!--        <mat-label>Choose a date</mat-label>-->
-<!--        <input matInput [matDatepicker]="picker">-->
-<!--        <mat-hint>MM/DD/YYYY</mat-hint>-->
-<!--        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--        <mat-datepicker #picker></mat-datepicker>-->
-<!--      </mat-form-field>-->
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Set start and stop time</ng-template><mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date">
+        <input matEndDate placeholder="End date">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
+<!--  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Scegli le domande</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Textarea</mat-label>
@@ -70,14 +73,14 @@
         <button mat-button matStepperNext>Next</button>
       </div>
     </form>
-  </mat-step>
+  </mat-step>-->
   <mat-step>
     <ng-template matStepLabel>Submit</ng-template>
     <p>You are now done.</p>
     <div>
       <button mat-button matStepperPrevious>Back</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
-      <button mat-button >SUBMIT</button>
+      <button mat-button (click)="getAllCategories()">SUBMIT</button>
     </div>
   </mat-step>
 </mat-stepper>
