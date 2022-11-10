@@ -73,4 +73,19 @@ export class HomeAdminComponent implements OnInit {
     );
   }
 
+  createSurvey(){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "mail":  this.mail,
+
+      },
+      skipLocationChange: false
+    };
+    this.router.navigate(
+      ['/create-survey'],
+      navigationExtras
+    );
+
+  }
+
 }

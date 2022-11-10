@@ -1,86 +1,40 @@
-<!--<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">-->
-<!--  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}-->
-<!--</button>-->
-<mat-stepper orientation="vertical" [linear]="false" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Choose a category</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Category</mat-label>
-        <mat-select >
-          <ng-container *ngFor="let resp of this.response">
-          <mat-option value="{{resp.id}}">{{resp.name}}</mat-option>
-          </ng-container>
-        </mat-select>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Name your survey</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Title" formControlName="firstCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Describe your survey</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Textarea</mat-label>
-        <textarea matInput></textarea>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Set start and stop time</ng-template><mat-form-field appearance="fill">
-      <mat-label>Enter a date range</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date">
-        <input matEndDate placeholder="End date">
-      </mat-date-range-input>
-      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
-    </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-<!--  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Scegli le domande</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Textarea</mat-label>
-        <textarea matInput></textarea>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>-->
-  <mat-step>
-    <ng-template matStepLabel>Submit</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-      <button mat-button (click)="getAllCategories()">SUBMIT</button>
-    </div>
-  </mat-step>
-</mat-stepper>
+<h3>Hi {{this.mail}}, create your Survey</h3>
+<form [formGroup]="form">
+  <mat-form-field appearance="fill">
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category">
+      <ng-container *ngFor="let resp of this.response">
+        <mat-option  value="{{resp.id}}">{{resp.name}}</mat-option>
+      </ng-container>
+    </mat-select>
+    <mat-select formControlName="categoryname">
+      <ng-container *ngFor="let resp of this.response">
+        <mat-option  value="{{resp.name}}">{{resp.name}}</mat-option>
+      </ng-container>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput placeholder="Title" formControlName="name" required>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill" >
+    <mat-label>Textarea</mat-label>
+    <textarea matInput formControlName="description"></textarea>
+  </mat-form-field>
+  <br>
+  <mat-label>Enter a date range</mat-label>
+  <br>
+  <mat-date-range-input [rangePicker]="picker">
+    <input matStartDate placeholder="Start date" formControlName="startdate">
+    <input matEndDate placeholder="End date" formControlName="enddate">
+  </mat-date-range-input>
+  <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</form>
+<div>
+  <button mat-button (click)="createSurvey()">SUBMIT</button>
+</div>
+
