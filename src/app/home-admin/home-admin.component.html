@@ -31,7 +31,7 @@
 </div>
 
 <div class="center">
-  <p>The surveys you ({{this.mail}}) have done</p>
+  <p>The surveys you have done</p>
   <table>
     <thead>
     <tr>
@@ -53,7 +53,6 @@
       <td>{{res.description}}</td>
       <td>{{res.publishDate}}</td>
       <td>{{res.endingDate}}</td>
-      <button routerLink="/create-survey" routerLinkActive="active" [skipLocationChange]=true>Take "{{res.name}}"</button>
     </tr>
     </tbody>
   </table>

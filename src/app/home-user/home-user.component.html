@@ -31,10 +31,30 @@
 
 <div class="center">
 <p>The surveys you have done</p>
-<table>
-  <th>ID</th>
-  <th>Name</th>
-  <th>Category</th>
-  <th>Description</th>
-</table>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID_Survey</th>
+      <th>Mail boss</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Publish_Date</th>
+      <th>Ending_Date</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let res of this.responseDone">
+      <td>{{res.id}}</td>
+      <td>{{res.idMail}}</td>
+      <td>{{res.name}}</td>
+      <td>{{res.category.name}}</td>
+      <td>{{res.description}}</td>
+      <td>{{res.publishDate}}</td>
+      <td>{{res.endingDate}}</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
