@@ -27,6 +27,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {HttpClientModule} from "@angular/common/http";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatNativeDateModule} from '@angular/material/core';
+import { TakeSurveyComponent } from './take-survey/take-survey.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import {MatNativeDateModule} from '@angular/material/core';
     HomeUserComponent,
     HomeAdminComponent,
     DialogTemplateComponent,
-    CreateSurveyComponent
+    CreateSurveyComponent,
+    TakeSurveyComponent
   ],
   imports: [
     BrowserModule,
