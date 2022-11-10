@@ -1,20 +1,37 @@
+<h1>Hi {{this.mail}}, welcome!</h1>
 <div class="center">
   <button class="button" mat-stroked-button (click)="logout()"> LOG OUT</button>
   <a id= "home" class="button" routerLink="/home-admin" routerLinkActive="active">HOME</a>
   <p>The surveys you can do </p>
   <table>
+    <thead>
     <tr>
-      <th>ID</th>
+      <th>ID_Survey</th>
+      <th>Mail boss</th>
       <th>Name</th>
       <th>Category</th>
       <th>Description</th>
-      <th>Expiring Date</th>
+      <th>Publish_Date</th>
+      <th>Ending_Date</th>
     </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let res of this.response">
+      <td>{{res.id}}</td>
+      <td>{{res.idMail}}</td>
+      <td>{{res.name}}</td>
+      <td>{{res.category.name}}</td>
+      <td>{{res.description}}</td>
+      <td>{{res.publishDate}}</td>
+      <td>{{res.endingDate}}</td>
+      <button routerLink="/create-survey" routerLinkActive="active" [skipLocationChange]=true>Take "{{res.name}}"</button>
+    </tr>
+    </tbody>
   </table>
 </div>
 
 <div class="center">
-  <p>The surveys you have done</p>
+  <p>The surveys you ({{this.mail}}) have done</p>
   <table>
     <th>ID</th>
     <th>Name</th>
