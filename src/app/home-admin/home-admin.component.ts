@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {RestApiService} from "../services/rest-api.service";
 
 
@@ -11,6 +11,8 @@ import {RestApiService} from "../services/rest-api.service";
 export class HomeAdminComponent implements OnInit {
 
   public mail: string="";
+  private _id: any;
+  private _name: any;
 
   constructor(private router: Router, private ras: RestApiService, private route: ActivatedRoute) { }
   public error:           string  = "";
@@ -39,6 +41,25 @@ export class HomeAdminComponent implements OnInit {
 
   logout() {
     this.router.navigateByUrl('');
+  }
+
+  takeSurvey(id: any, name: any, description: string | string){
+    this._id = id;
+    this._name = name;
+    console.log(this._id);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "id":  this._id,
+        "name": this._name,
+        "description": description
+
+      },
+      skipLocationChange: false
+    };
+    this.router.navigate(
+      ['/take-survey'],
+      navigationExtras
+    );
   }
 
 }
