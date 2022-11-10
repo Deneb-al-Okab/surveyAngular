@@ -24,7 +24,7 @@
       <td>{{res.description}}</td>
       <td>{{res.publishDate}}</td>
       <td>{{res.endingDate}}</td>
-      <button routerLink="/create-survey" routerLinkActive="active" [skipLocationChange]=true>Take "{{res.name}}"</button>
+      <button (click)="takeSurvey(res.id,res.name,res.description)">Take</button>
     </tr>
     </tbody>
   </table>
@@ -33,13 +33,32 @@
 <div class="center">
   <p>The surveys you ({{this.mail}}) have done</p>
   <table>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Category</th>
-    <th>Description</th>
+    <thead>
+    <tr>
+      <th>ID_Survey</th>
+      <th>Mail boss</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Publish_Date</th>
+      <th>Ending_Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let res of this.responseDone">
+      <td>{{res.id}}</td>
+      <td>{{res.idMail}}</td>
+      <td>{{res.name}}</td>
+      <td>{{res.category.name}}</td>
+      <td>{{res.description}}</td>
+      <td>{{res.publishDate}}</td>
+      <td>{{res.endingDate}}</td>
+      <button routerLink="/create-survey" routerLinkActive="active" [skipLocationChange]=true>Take "{{res.name}}"</button>
+    </tr>
+    </tbody>
   </table>
 </div>
 
-<p>Ti daremo la possibilità di creare sondaggi</p>
+<p>We are giving you the possibility to create your own survey</p>
 <a class="button" routerLink="/create-survey" routerLinkActive="active">CREATE SURVEY</a>
 <router-outlet></router-outlet>

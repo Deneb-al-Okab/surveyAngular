@@ -17,7 +17,7 @@ export class RestApiService {
 
       switch (method.toUpperCase()) {
         case 'GET':
-          this.http.get(url).subscribe({
+          this.http.get(url, { headers: headers }).subscribe({
             next: (res: any) => {
               resolve(res);
             },
