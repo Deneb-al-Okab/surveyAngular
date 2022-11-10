@@ -52,7 +52,6 @@ export class HomeAdminComponent implements OnInit {
         "id":  this._id,
         "name": this._name,
         "description": description
-
       },
       skipLocationChange: false
     };
