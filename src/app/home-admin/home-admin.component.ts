@@ -11,6 +11,7 @@ import {RestApiService} from "../services/rest-api.service";
 export class HomeAdminComponent implements OnInit {
 
   public mail: string="";
+  public responseDone: any;
 
   constructor(private router: Router, private ras: RestApiService, private route: ActivatedRoute) { }
   public error:           string  = "";
@@ -21,20 +22,31 @@ export class HomeAdminComponent implements OnInit {
       this.mail = params["mail"];
     });
 
-    this.getAllSurveys();
+    this.getToDoSurveys();
+    this.getDoneSurveys();
   }
 
-
-  public async getAllSurveys() {
+  public getToDoSurveys( ) {
+    let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo?start=0&step=10&mail="+this.mail;
     this.error = "";
-
-    await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/surveys', 'GET',null)
+    this.ras.callApi(url , 'GET',null)
       .then((res) => {
         console.log(res);
         this.response = res;
       }).catch((err) => {
-        this.error = "Something went WRONG!!";
-      });
+      this.error = "Something went WRONG!!";
+    });
+  }
+  public getDoneSurveys( ) {
+    let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone?start=0&step=10&mail="+this.mail;
+    this.error = "";
+    this.ras.callApi(url , 'GET',null)
+      .then((res) => {
+        console.log(res);
+        this.responseDone = res;
+      }).catch((err) => {
+      this.error = "Something went WRONG!!";
+    });
   }
 
   logout() {

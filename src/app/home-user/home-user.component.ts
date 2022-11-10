@@ -18,20 +18,25 @@ export class HomeUserComponent implements OnInit {
   constructor(public dialog: MatDialog, private router: Router, private ras: RestApiService, private route: ActivatedRoute) { }
   public error:           string  = "";
   public response: any;
+  private _m: any;
 
     ngOnInit(): void {
+      console.log("errore");
       this.route.queryParams.subscribe(params=>{
         this.mail = params["mail"];
         });
+      console.log(this.mail);
 
-      this.getAllSurveys();
+      this.getDoneSurveys({m: this.mail});
   }
 
+  public getDoneSurveys(m: any  ) {
+    this._m = m;
+    console.log("this_m =" + this._m);
 
-  public async getAllSurveys() {
-    this.error = "";
 
-    await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/surveys', 'GET',null)
+      this.error = "";
+     this.ras.callApi('http://localhost:8080/surveySpringBoot/api/surveysDone?start=0?step=10', 'GET',this._m)
       .then((res) => {
         console.log(res);
         this.response = res;
