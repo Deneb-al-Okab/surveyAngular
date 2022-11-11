@@ -4,18 +4,18 @@
 <h2>{{this.description}}</h2>
 <form [formGroup]="form">
 
-<ng-container *ngFor="let question of this.questions;">
+<ng-container *ngFor="let question of this.questions;let i = index">
 <!--  <mat-form-field >-->
 <label id="example-radio-group-label" >{{question.question}}</label>
-<mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="id_qa">
+<mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName='id_qa' id="{{'id_qa'+i}}">
   <ng-container *ngFor="let answer of question.answers;">
   <mat-radio-button class="example-radio-button"  [value]="answer.id_qa">
     {{answer.answer}}
   </mat-radio-button>
+    <p>{{answer.id_qa}}</p>
   </ng-container>
 </mat-radio-group>
 <!--  </mat-form-field>-->
 </ng-container>
 </form>
-
 <button mat-button (click)="submitSurvey()">SUBMIT</button>
