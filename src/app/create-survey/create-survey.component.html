@@ -1,6 +1,6 @@
 <h3>Hi {{this.mail}}, create your Survey</h3>
 <form [formGroup]="form">
-  <mat-form-field appearance="fill">
+  <mat-form-field >
     <mat-label>Category</mat-label>
     <mat-select formControlName="category">
       <ng-container *ngFor="let resp of this.response">
