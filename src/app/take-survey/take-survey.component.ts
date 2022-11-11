@@ -80,7 +80,6 @@ export class TakeSurveyComponent implements OnInit {
             index ++;
           }
        else{
-
             // Controllo se id_questione è uguale ad almeno una delle
             // question già salvate
             let check = 0 //se 0 è diversa se 1 è uguale ad almeno 1
