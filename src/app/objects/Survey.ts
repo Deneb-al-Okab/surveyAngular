@@ -1,4 +1,3 @@
-import {FormControl, Validators} from "@angular/forms";
 
 export class Category {
   constructor(

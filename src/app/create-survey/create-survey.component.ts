@@ -4,8 +4,8 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RestApiService} from "../services/rest-api.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {coerceStringArray} from "@angular/cdk/coercion";
-import { Survey } from '../create-survey/Survey'
-import { Category } from '../create-survey/Survey'
+import { Survey } from '../objects/Survey'
+import { Category } from '../objects/Survey'
 
 @Component({
   selector: 'app-create-survey',
