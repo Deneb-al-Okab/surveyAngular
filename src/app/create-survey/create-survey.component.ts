@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RestApiService} from "../services/rest-api.service";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {coerceStringArray} from "@angular/cdk/coercion";
 import { Survey } from '../objects/Survey'
 import { Category } from '../objects/Survey'
@@ -70,9 +70,17 @@ public async getAllCategories() {
       });
   }
 
-
-  // public hasError(controlName: string, errorName: string): boolean {
-  //     return this.firstFormGroup.controls[controlName].hasError(errorName);
-  //   }
+  backHome(){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "mail":    this.mail,
+      },
+      skipLocationChange: false
+    };
+    this.router.navigate(
+       ['/home-admin'],
+       navigationExtras
+      );
+    }
 
 }

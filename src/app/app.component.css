@@ -67,6 +67,7 @@ header {
   text-align: center;
   font-size: 17px;
   color: white;
+  z-index: 1;
 }
 
 /* Style the footer */
@@ -78,4 +79,5 @@ footer {
   padding: 10px;
   text-align: center;
   color: white;
+  z-index: 1;
 }

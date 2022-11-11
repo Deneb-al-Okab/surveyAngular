@@ -15,6 +15,7 @@ export class HomeUserComponent implements OnInit {
   public responseDone: any;
   private _id: any;
   private _name: any;
+  private adm: number=0;
 
   constructor(private router: Router, private ras: RestApiService, private route: ActivatedRoute) { }
   public error:           string  = "";
@@ -65,8 +66,9 @@ export class HomeUserComponent implements OnInit {
       queryParams: {
         "id":  this._id,
         "name": this._name,
-        "description": description
-
+        "description": description,
+        "mail": this.mail,
+        "is_admin": this.adm
       },
       skipLocationChange: false
     };

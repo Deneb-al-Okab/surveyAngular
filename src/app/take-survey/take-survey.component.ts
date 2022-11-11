@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {RestApiService} from "../services/rest-api.service";
 import {Question} from '../objects/QASurvey'
 import { Answer } from '../objects/QASurvey'
@@ -17,10 +17,12 @@ export class TakeSurveyComponent implements OnInit {
   public name: string="";
   public _id: any;
   private error: string="";
+  public responseQA: any;
+  private mail: string="";
+  private is_adm!: number;
   public questions: any;
-  private responseQA: any;
 
-  constructor(private ras: RestApiService,private route: ActivatedRoute) { }
+  constructor(private ras: RestApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -29,21 +31,20 @@ export class TakeSurveyComponent implements OnInit {
     });
 
     this.route.queryParams.subscribe(params=>{
-
       this.description = params["description"];
       this.id = params["id"];
       this.name = params["name"];
-
-      this.readSurvey(this.id);
-
+      this.mail = params["mail"];
+      this.is_adm = params["is_admin"];
     })
+
+    this.readSurvey(this.id);
   }
 
   public async readSurvey(id: any){
     this._id = id;
-    this._id = 1;
     this.error = "";
-    await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/readSurvey?id='+this._id,'GET',null)
+    await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/readSurvey?id='+this._id, 'GET', null)
       .then((res) => {
         this.responseQA = res;
         this.questions = new Array<Question>();
@@ -103,6 +104,28 @@ export class TakeSurveyComponent implements OnInit {
 
   public submitSurvey(){
     console.log("dada")
+  }
+
+  backHome(){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "mail":    this.mail,
+      },
+      skipLocationChange: false
+    };
+    if (this.is_adm == 0){
+      this.router.navigate(
+        ['/home-user'],
+        navigationExtras
+      )
+    }
+    else if (this.is_adm == 1){
+      this.router.navigate(
+        ['/home-admin'],
+        navigationExtras
+      );
+    }
+
   }
 
 }

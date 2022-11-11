@@ -14,6 +14,9 @@ export class HomeComponent implements OnInit {
   constructor(public dialog: MatDialog, private router: Router) {
   }
 
+  ngOnInit(): void {
+  }
+
   openLogin(){
     const config = new MatDialogConfig();
 
@@ -28,7 +31,7 @@ export class HomeComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) =>{
       let navigationExtras: NavigationExtras = {
         queryParams: {
-          "mail":    result.mail
+          "mail":    result.mail,
         },
         skipLocationChange: false
       };
@@ -83,7 +86,6 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
+
 
 }

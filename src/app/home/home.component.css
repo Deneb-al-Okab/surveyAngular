@@ -1,7 +1,7 @@
 .center {
   margin: auto;
-  width: 90%;
-//border: 3px solid #440069;
+  width: 100px;
+  height: 100px;
   padding: 10px;
 }
 h1,
@@ -41,6 +41,7 @@ p {
   padding: 6px 24px;
   text-decoration: none;
   outline: 0;
+  z-index: 0;
 }
 
 .activebutton {
@@ -53,7 +54,7 @@ p {
 
 #mybutton {
   position: absolute;
-  top: 0;
+  top: 100px;
   right: 50px;
 }
 
