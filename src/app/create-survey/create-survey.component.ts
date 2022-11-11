@@ -17,6 +17,7 @@ import { Category } from '../objects/Survey'
   public error:           string  = "";
   public response: any;
   public myjson!: any;
+  isVisible: boolean= false;
 
 
   public mail: any;
@@ -63,9 +64,10 @@ public async getAllCategories() {
     console.log(surv);
     await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/createSurvey', 'POST',surv)
       .then((res) => {
+        this.isVisible=false;
         //this.response = res;
       }).catch((err) => {
-
+        this.isVisible=true;
         this.error = "Qualcosa è andato storto ";
       });
   }
