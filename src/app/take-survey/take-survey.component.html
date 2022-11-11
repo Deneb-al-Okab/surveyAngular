@@ -7,14 +7,14 @@
 <form [formGroup]="form">
 <ng-container *ngFor="let question of this.questions;">
 <!--  <mat-form-field >-->
-  <label id="example-radio-group-label" >{{question.question}}</label>
-  <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="id_qa">
-    <ng-container *ngFor="let answer of question.answers;">
-      <mat-radio-button class="example-radio-button"  [value]="answer.id_qa">
-        {{answer.answer}}
-      </mat-radio-button>
-    </ng-container>
-  </mat-radio-group>
+    <label id="example-radio-group-label" >{{question.question}}</label>
+    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="id_qa">
+      <ng-container *ngFor="let answer of question.answers;">
+        <mat-radio-button class="example-radio-button"  [value]="answer.id_qa">
+          {{answer.answer}}
+        </mat-radio-button>
+      </ng-container>
+    </mat-radio-group>
 <!--  </mat-form-field>-->
   <hr>
 </ng-container>

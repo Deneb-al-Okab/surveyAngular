@@ -3,7 +3,11 @@ import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {RestApiService} from "../services/rest-api.service";
 import {Question} from '../objects/QASurvey'
 import { Answer } from '../objects/QASurvey'
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl,
+  FormGroup,
+  FormBuilder,
+  FormArray,
+  Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-take-survey',
@@ -22,12 +26,13 @@ export class TakeSurveyComponent implements OnInit {
   private is_adm!: number;
   public questions: any;
 
-  constructor(private ras: RestApiService, private route: ActivatedRoute, private router: Router) { }
+
+  constructor(private ras: RestApiService, private route: ActivatedRoute,
+              private router: Router,private fb: FormBuilder) { }
 
   ngOnInit(): void {
-
-    this.form = new FormGroup({
-      id_qa: new FormControl('', [Validators.required]),
+    this.form =  this.fb.group({
+      QAS:this.fb.array([this.createQAS()],Validators.required),
     });
 
     this.route.queryParams.subscribe(params=>{
@@ -37,8 +42,18 @@ export class TakeSurveyComponent implements OnInit {
       this.mail = params["mail"];
       this.is_adm = params["is_admin"];
     })
-
     this.readSurvey(this.id);
+  }
+  createQAS():FormGroup{
+    return this.fb.group({
+      QAS:[null,Validators.required],
+    })
+  }
+  addQAS() {
+    this.QAS.push(this.createQAS());
+  }
+  get QAS():FormArray{
+    return <FormArray> this.form.get('QAS');
   }
 
   public async readSurvey(id: any){
@@ -94,7 +109,6 @@ export class TakeSurveyComponent implements OnInit {
           index ++;
           //FINE PIRMO FOR
           }
-        console.log(this.questions);
       }).catch((err) => {
         this.error = "Something went WRONG!!";
         console.log(err);
@@ -102,7 +116,7 @@ export class TakeSurveyComponent implements OnInit {
   }
 
   public submitSurvey(){
-    console.log("dada")
+    console.log(this.form.value.i);
   }
 
   backHome(){

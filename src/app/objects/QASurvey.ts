@@ -23,11 +23,7 @@ export class  Question{
 
 }
 
-export class QuestionList{
-  constructor(
-    public questions:  Question[],
-
-  ) { }
 
 
-}
+
+
