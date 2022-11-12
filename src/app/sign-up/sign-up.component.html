@@ -1,45 +1,38 @@
 <h2 mat-dialog-title>SUBSCRIBE</h2>
+  <mat-dialog-content class="full-page">
+    <mat-card class="login-card">
+      <form [formGroup]="form">
+        <mat-card-content>
 
-  <mat-dialog-content class="mat-typography">
-    <p>Please fill in this form to create an account.</p>
-    <hr>
-
-    <mat-error class="login-error">{{this.error}}</mat-error>
-    <form [formGroup]="form">
-      <mat-card-content>
-
-      <mat-form-field class="signup-field">
+        <mat-form-field class="signup-field">
 <!--        <label for="email"><b>Email</b></label>-->
-        <input matInput type="text" id="email" placeholder="Enter Email" formControlName="mail" onInput="this.value = this.value.toLowerCase()">
-        <mat-error *ngIf="hasError('mail', 'required')">fill this field</mat-error>
-      </mat-form-field><br>
+          <input matInput type="text" id="email" placeholder="Enter Email" formControlName="mail" onInput="this.value = this.value.toLowerCase()">
+          <mat-error *ngIf="hasError('mail', 'required')">Fill this field</mat-error>
+        </mat-form-field>
 
-      <mat-form-field class="signup-field">
+        <mat-form-field class="signup-field">
 <!--        <label for="psw"><b>Password</b></label>-->
-        <input matInput [type]="hidePassword ? 'password' : 'text'" id = "psw" placeholder="password" formControlName="pass"/>
-        <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-        <mat-error *ngIf="hasError('pass', 'required')">need to set password</mat-error>
-      </mat-form-field><br>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" id = "psw" placeholder="password" formControlName="pass"/>
+          <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          <mat-error *ngIf="hasError('pass', 'required')">Fill this field</mat-error>
+        </mat-form-field>
+
       </mat-card-content>
-      <label>Became PREMIUM!</label><br>
+
+      <label>Became <b>PREMIUM</b>!</label><br>
       <mat-radio-group formControlName = "isAdmin">
         <mat-radio-button [value]=1 >Yes, please!</mat-radio-button>
         <mat-radio-button [value]=0 >No, thanks!</mat-radio-button>
       </mat-radio-group>
-    </form>
-<!--      <mat-form-field class="signup-field">-->
-<!--        <label for="psw"><b>Repeat Password</b></label>-->
-<!--        <input matInput [type]="hidePassword ? 'password' : 'text'" id = "pswrep" placeholder="repeat password" formControlName="passRep"/>-->
-<!--        <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>-->
-<!--        <mat-error *ngIf="hasError('passRep', 'required')">need to be the same</mat-error>-->
-<!--      </mat-form-field>-->
+      </form>
+      <mat-error class="login-error">{{ this.error }}</mat-error>
+    </mat-card>
 
-    <hr>
-    <p>By creating an account you agree to our <a href="">Terms & Privacy</a>.</p>
+    <p>By creating an account you agree to our <a>Terms & Privacy</a>.</p>
     <mat-dialog-actions align="end">
       <button class="activebutton" mat-button (click)="signUP()" [disabled]="!form.valid">SIGN-UP</button>
       <button class="cancelbtn" mat-button (click)="close()">CLOSE</button>
     </mat-dialog-actions>
 
-    </mat-dialog-content>
+  </mat-dialog-content>
 

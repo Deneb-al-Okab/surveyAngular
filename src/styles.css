@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #F4D6FF;
+  background-color: #FFF3F8;
   padding-top: 100px;
-  padding-bottom: 350px;
+  padding-bottom: 200px;
 }
 
 html, body { height: 100%; }
