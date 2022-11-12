@@ -1,10 +1,6 @@
-<div class="full-page">
-  <mat-dialog-content >
-
-    <mat-card >
-
-      <mat-error class="login-error">{{ this.error }}</mat-error>
-
+<h2 mat-dialog-title>LOGIN</h2>
+  <mat-dialog-content class="full-page">
+    <mat-card class="login-card">
       <form [formGroup]="form">
         <mat-card-content>
 
@@ -12,23 +8,21 @@
             <input matInput type="text" placeholder="Your Email" formControlName="mail" onInput="this.value = this.value.toLowerCase()">
             <mat-error *ngIf="hasError('mail', 'required')">Email required</mat-error>
           </mat-form-field>
+
           <mat-form-field class="login-field">
-            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="La tua password" formControlName="pass"/>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" placeholder="Your Password" formControlName="pass"/>
             <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
-            <mat-error *ngIf="hasError('pass', 'required')">Password obbligatoria</mat-error>
+            <mat-error *ngIf="hasError('pass', 'required')">Password required</mat-error>
           </mat-form-field>
+
         </mat-card-content>
-
-        <mat-dialog-actions align="end">
-          <button mat-raised-button class="activebutton" color="primary" (click)="login()" [disabled]="!form.valid">CONFERMA</button>
-          <button mat-raised-button class="cancelbtn" color="basic"  (click)="close()">CHIUDI</button>
-
-        </mat-dialog-actions>
-
-</form>
-
+      </form>
+      <mat-error class="login-error">{{ this.error }}</mat-error>
     </mat-card>
+
+    <mat-dialog-actions align="end">
+      <button mat-raised-button class="activebutton" color="primary" (click)="login()" [disabled]="!form.valid">CONFERMA</button>
+      <button mat-raised-button class="cancelbtn" color="basic"  (click)="close()">CHIUDI</button>
+    </mat-dialog-actions>
+
   </mat-dialog-content>
-
-
-</div>

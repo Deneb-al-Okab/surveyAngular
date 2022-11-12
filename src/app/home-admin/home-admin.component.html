@@ -1,22 +1,31 @@
 <h1>Hi {{this.mail}}, welcome!</h1>
 <button class="button" mat-stroked-button (click)="logout()"> LOG OUT</button>
 
+<!--<table mat-table [dataSource]="this.responseToDo" class="mat-elevation-z8">
+  <ng-container *ngFor="let columnName of columnNames" [matColumnDef]="columnName">
+    <th mat-header-cell *matHeaderCellDef>{{ columnName }}</th>
+    <td mat-cell *matCellDef="let row">{{ row[columnName] }}</td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="columnNames"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnNames"></tr>
+</table>-->
+
 <div class="center">
-  <p>The surveys you can do </p>
+  <p>You can <b>participate</b> in all these surveys:</p>
   <table>
     <thead>
     <tr>
-      <th>ID_Survey</th>
+      <th>ID</th>
       <th>Mail boss</th>
       <th>Name</th>
       <th>Category</th>
       <th>Description</th>
-      <th>Publish_Date</th>
-      <th>Ending_Date</th>
+      <th>Published</th>
+      <th>Expiration</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let res of this.response">
+    <tr *ngFor="let res of this.responseToDo">
       <td>{{res.id}}</td>
       <td>{{res.idMail}}</td>
       <td>{{res.name}}</td>
@@ -24,24 +33,27 @@
       <td>{{res.description}}</td>
       <td>{{res.publishDate}}</td>
       <td>{{res.endingDate}}</td>
-      <button (click)="takeSurvey(res.id,res.name,res.description)">Take</button>
+      <button (click)="takeSurvey(res.id,res.name,res.description)">Go</button>
     </tr>
     </tbody>
   </table>
+  <button id = "previousToDo" (click)="goToPreviousPageToDo()" [disabled]="disabledPrevToDo"> << </button>
+  <button id = "nextToDo" (click)="goToNextPageToDo()" [disabled]="disabledNextToDo"> >> </button>
 </div>
 
+
 <div class="center">
-  <p>The surveys you have done</p>
+  <p>The surveys you have <b>done</b>:</p>
   <table>
     <thead>
     <tr>
-      <th>ID_Survey</th>
+      <th>ID</th>
       <th>Mail boss</th>
       <th>Name</th>
       <th>Category</th>
       <th>Description</th>
-      <th>Publish_Date</th>
-      <th>Ending_Date</th>
+      <th>Published</th>
+      <th>Expiration</th>
     </tr>
     </thead>
     <tbody>
@@ -56,8 +68,10 @@
     </tr>
     </tbody>
   </table>
+  <button id = "previousDone" (click)="goToPreviousPageDone()" [disabled]="disabledPrevDone"> << </button>
+  <button id = "nextDone" (click)="goToNextPageDone()" [disabled]="disabledNextDone"> >> </button>
 </div>
 
 <p>We are giving you the possibility to create your own survey</p>
-<button (click)="createSurvey()">Take</button>
+<button mat-stroked-button class="nav_button" (click)="createSurvey()">CREATE</button>
 <router-outlet></router-outlet>

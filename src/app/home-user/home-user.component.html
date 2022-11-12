@@ -2,21 +2,21 @@
 <button class="button" mat-stroked-button (click)="logout()"> LOG OUT</button>
 
 <div class="center">
-<p>The surveys you  can do </p>
+  <p>You can <b>participate</b> in all these surveys:</p>
   <table>
     <thead>
     <tr>
-      <th>ID_Survey</th>
+      <th>ID</th>
       <th>Mail boss</th>
       <th>Name</th>
       <th>Category</th>
       <th>Description</th>
-      <th>Publish_Date</th>
-      <th>Ending_Date</th>
+      <th>Published</th>
+      <th>Expiration</th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let res of this.response">
+    <tr *ngFor="let res of this.responseToDo">
       <td>{{res.id}}</td>
       <td>{{res.idMail}}</td>
       <td>{{res.name}}</td>
@@ -28,25 +28,26 @@
     </tr>
     </tbody>
   </table>
+  <button id = "previousToDo" (click)="goToPreviousPageToDo()" [disabled]="disabledPrevToDo"> << </button>
+  <button id = "nextToDo" (click)="goToNextPageToDo()" [disabled]="disabledNextToDo"> >> </button>
 </div>
 
-<div class="center">
-<p>The surveys you have done</p>
 
+<div class="center">
+  <p>The surveys you have <b>done</b>:</p>
   <table>
     <thead>
     <tr>
-      <th>ID_Survey</th>
+      <th>ID</th>
       <th>Mail boss</th>
       <th>Name</th>
       <th>Category</th>
       <th>Description</th>
-      <th>Publish_Date</th>
-      <th>Ending_Date</th>
+      <th>Published</th>
+      <th>Expiration</th>
     </tr>
     </thead>
     <tbody>
-
     <tr *ngFor="let res of this.responseDone">
       <td>{{res.id}}</td>
       <td>{{res.idMail}}</td>
@@ -58,4 +59,6 @@
     </tr>
     </tbody>
   </table>
+  <button id = "previousDone" (click)="goToPreviousPageDone()" [disabled]="disabledPrevDone"> << </button>
+  <button id = "nextDone" (click)="goToNextPageDone()" [disabled]="disabledNextDone"> >> </button>
 </div>

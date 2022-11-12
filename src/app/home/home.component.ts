@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
 
     config.disableClose = true;
     config.id           = "login-component";
-    config.height       = "500px";
+    config.height       = "450px";
     config.width        = "650px";
     config.data         = {title: "LOGIN", component: 'login'};
 
@@ -57,7 +57,7 @@ export class HomeComponent implements OnInit {
 
     config.disableClose = true;
     config.id           = "sign-up-component";
-    config.height       = "500px";
+    config.height       = "550px";
     config.width        = "650px";
     config.data         = {title: 'SIGN-UP', component: 'sign-up'};
 
