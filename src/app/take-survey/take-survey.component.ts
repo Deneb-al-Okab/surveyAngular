@@ -9,13 +9,14 @@ import {FormControl,
   FormArray,
   Validators} from '@angular/forms';
 
+
 @Component({
   selector: 'app-take-survey',
   templateUrl: './take-survey.component.html',
   styleUrls: ['./take-survey.component.css']
 })
 export class TakeSurveyComponent implements OnInit {
-  public form!:           FormGroup;
+  // public form:           FormGroup;
   public description: string="";
   public id: any;
   public name: string="";
@@ -25,39 +26,46 @@ export class TakeSurveyComponent implements OnInit {
   private mail: string="";
   private is_adm!: number;
   public questions: any;
+  public QASForm: any;
 
+  //CREo form con un FormArray QAS (question answer Survey)
+  form =  this.fb.group({
+    QAS:  this.fb.array([]),
+  });
 
   constructor(private ras: RestApiService, private route: ActivatedRoute,
-              private router: Router,private fb: FormBuilder) { }
+              private router: Router,private fb: FormBuilder) {
+  }
 
-  ngOnInit(): void {
-    this.form =  this.fb.group({
-      QAS:this.fb.array([this.createQAS()],Validators.required),
-    });
-
-    this.route.queryParams.subscribe(params=>{
+  async ngOnInit(): Promise<void> {
+    this.route.queryParams.subscribe(params => {
       this.description = params["description"];
       this.id = params["id"];
       this.name = params["name"];
       this.mail = params["mail"];
       this.is_adm = params["is_admin"];
     })
-    this.readSurvey(this.id);
+    await this.readSurvey(this.id);
+    // Faccio loop su this.questions per creare FormArray di dimensione giusta
+    let element: keyof typeof this.responseQA;
+    for (element in this.questions) {
+      (this.form.get('QAS') as FormArray).push(this.addQAS());
+    }
   }
-  createQAS():FormGroup{
-    return this.fb.group({
-      QAS:[null,Validators.required],
-    })
+  //FUnzione add da inizializzare subito e get per prendere dopo
+   addQAS(): FormGroup {
+     const QASForm = this.fb.group({
+       id_qa: ['', Validators.required],
+     });
+     return QASForm;
   }
-  addQAS() {
-    this.QAS.push(this.createQAS());
-  }
-  get QAS():FormArray{
-    return <FormArray> this.form.get('QAS');
+  getQAS(){
+    return this.form.controls["QAS"] as FormArray;
   }
 
   public async readSurvey(id: any){
     this._id = id;
+    console.log("ID = " + this._id);
     this.error = "";
     await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/readSurvey?id='+this._id, 'GET', null)
       .then((res) => {
@@ -113,10 +121,13 @@ export class TakeSurveyComponent implements OnInit {
         this.error = "Something went WRONG!!";
         console.log(err);
       });
+    console.log(this.questions);
   }
 
   public submitSurvey(){
-    console.log(this.form.value.i);
+    console.log("QUAS ARRAY: ");
+    console.log("QUAS ARRAY:  getQUS()");
+    console.log(this.getQAS());
   }
 
   backHome(){

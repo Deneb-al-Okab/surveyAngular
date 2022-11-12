@@ -3,21 +3,22 @@
 <h1>{{this.name}}</h1>
 <h2>{{this.description}}</h2>
 
-<hr>
-<form [formGroup]="form">
-<ng-container *ngFor="let question of this.questions;">
-<!--  <mat-form-field >-->
-    <label id="example-radio-group-label" >{{question.question}}</label>
-    <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" formControlName="id_qa">
-      <ng-container *ngFor="let answer of question.answers;">
-        <mat-radio-button class="example-radio-button"  [value]="answer.id_qa">
-          {{answer.answer}}
-        </mat-radio-button>
+<!--Faccio in ordine il formGroup generale poi formArray poi formGroup di formArray
+ poi il formControlName thell'answer specifica-->
+<form (ngSubmit)="submitSurvey()" [formGroup]="form">
+    <ng-container formArrayName="QAS" *ngFor="let question of this.questions;let i=index">
+      <label id="example-radio-group-label" >{{question.question}}</label>
+      <mat-radio-group  aria-labelledby="example-radio-group-label" class="example-radio-group">
+      <ng-container [formGroupName]="i">
+        <th *ngFor="let answer of question.answers;let j=index">
+          <input type="radio" formControlName="id_qa" value="{{answer.id_qa}}">{{answer.answer}}
+        </th>
       </ng-container>
-    </mat-radio-group>
-<!--  </mat-form-field>-->
-  <hr>
-</ng-container>
+      </mat-radio-group>
+    </ng-container>
+  <br>
+  <button type="submit">Submit</button>
 </form>
-<hr>
-<button class="activebutton" mat-button (click)="submitSurvey()">SUBMIT</button>
+<pre>
+  {{ form.value | json }}
+</pre>
