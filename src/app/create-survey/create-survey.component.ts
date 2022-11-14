@@ -50,9 +50,10 @@ import { Category } from '../objects/Survey'
   get questions() {
     return this.formQA.controls["questions"] as FormArray;
   }
-  getAnswers(index: number) {
-    return this.formQA.get(`questions.${index}.answers`) as FormArray;
+  getAnswers(empIndex:number) : FormArray {
+    return this.questions.at(empIndex).get("answers") as FormArray
   }
+
   addQuestion() {
     const questionForm = this.fb.group({
       id_cat: [this.form.value.category, Validators.required],
@@ -62,13 +63,18 @@ import { Category } from '../objects/Survey'
     });
     this.questions.push(questionForm);
   }
-  addAnswer(index: number) {
-    const answerForm = this.fb.group({
-      answers: this.fb.array([
-      ])
-    });
-    let answerstemp = this.getAnswers(index);
-    answerstemp.push(answerForm);
+  questionAnswer(empIndex: number): FormArray {
+    return this.questions
+      .at(empIndex)
+      .get('answers') as FormArray;
+  }
+  newAnswer(): FormGroup {
+    return this.fb.group({
+      answer: "",
+    })
+  }
+  addAnswer(empIndex:number) {
+    this.getAnswers(empIndex).push(this.newAnswer());
   }
   deleteQuestion(lessonIndex: number) {
     this.questions.removeAt(lessonIndex);

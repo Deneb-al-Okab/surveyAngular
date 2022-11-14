@@ -56,25 +56,31 @@
                   </ng-container>
                 </mat-select>
               </mat-form-field>
-              <button mat-mini-fab (click)="addAnswer(i)">
-                <mat-icon class="add-course-btn">add</mat-icon>
+              <button  (click)="addAnswer(i)">
+<!--                <mat-icon class="add-course-btn">add</mat-icon>-->
+                ADD ANSWER
               </button>
 <!--              DENTRO LA DOMANDA I-ESIMA CREO RISPOSTE -->
-              <ng-container formArrayName="answers" *ngFor="let answer of this.question_cat; let j = index">
+              <ng-container formArrayName="answers">
+              <ng-container  *ngFor="let answers of questionAnswer(i).controls; let j = index">
+                <div  [formGroupName]="j">
               <mat-form-field  appearance="fill">
                 <mat-label>Answers</mat-label>
-                <mat-select formControlName="answers">
-                  <ng-container *ngFor="let answers of this.answers_all">
-                    <mat-option  value="{{answers.id}}">{{answers.answer}}</mat-option>
+                <mat-select formControlName="answer">
+                  <ng-container *ngFor="let answer2 of this.answers_all">
+                    <mat-option  value="{{answer2.id}}">{{answer2.answer}}</mat-option>
                   </ng-container>
                 </mat-select>
               </mat-form-field>
+                  </div>
+              </ng-container>
               </ng-container>
             </div>
           </ng-container>
         </div>
-        <button mat-mini-fab (click)="addQuestion()">
-          <mat-icon class="add-course-btn">add</mat-icon>
+        <button  (click)="addQuestion()">
+          ADD QUESTION
+<!--          <mat-icon class="add-course-btn">add</mat-icon>-->
         </button>
       </div>
       <button mat-button matStepperPrevious>Back</button>
