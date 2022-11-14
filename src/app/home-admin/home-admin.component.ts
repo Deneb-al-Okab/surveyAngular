@@ -181,7 +181,7 @@ export class HomeAdminComponent implements OnInit {
       this.start++;
       this.disabledPrevDone=false;
       this.disabledNextDone=false;
-      let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
+      let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone";
       let params = "?start=" + (this.start*this.stepDone) + "&step=" + this.stepDone + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
