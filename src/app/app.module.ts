@@ -30,6 +30,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { TakeSurveyComponent } from './take-survey/take-survey.component';
 import {MatTableModule} from "@angular/material/table";
 import {OnCreate} from "./take-survey/OnCreate";
+import { SurveyStatsComponent } from './survey-stats/survey-stats.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {OnCreate} from "./take-survey/OnCreate";
     DialogTemplateComponent,
     CreateSurveyComponent,
     TakeSurveyComponent,
-    OnCreate
+    OnCreate,
+    SurveyStatsComponent
   ],
   imports: [
     BrowserModule,

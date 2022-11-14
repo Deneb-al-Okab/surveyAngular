@@ -72,6 +72,36 @@
   <button id = "nextDone" (click)="goToNextPageDone()" [disabled]="disabledNextDone"> >> </button>
 </div>
 
+<div class="center">
+  <p>The surveys you <b>created</b>:</p>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Description</th>
+      <th>Published</th>
+      <th>Expiration</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let res of this.responseCreated">
+      <td>{{res.id}}</td>
+      <td>{{res.name}}</td>
+      <td>{{res.category.name}}</td>
+      <td>{{res.description}}</td>
+      <td>{{res.publishDate}}</td>
+      <td>{{res.endingDate}}</td>
+      <button (click)="goToStats(res.id,res.name,res.description)">Stats</button>
+    </tr>
+    </tbody>
+  </table>
+  <button id = "previousCreated" (click)="goToPreviousPageCreated()" [disabled]="disabledPrevCreated"> << </button>
+  <button id = "nextToDoCreated" (click)="goToNextPageCreated()" [disabled]="disabledNextCreated"> >> </button>
+</div>
+
+
 <p>We are giving you the possibility to create your own survey</p>
 <button mat-stroked-button class="nav_button" (click)="createSurvey()">CREATE</button>
 <router-outlet></router-outlet>

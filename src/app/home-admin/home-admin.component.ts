@@ -11,23 +11,27 @@ import {RestApiService} from "../services/rest-api.service";
 export class HomeAdminComponent implements OnInit {
 
   public mail:         string="";
-  private _id:         any;
-  private _name:       any;
 
   private adm:         number=1;
   private start:       number=0;
   private stepToDo:    number=3;
   private stepDone:    number=3;
+  private stepCreated:    number=3;
   public countToDo:    number=0;
   public countDone:    number=0;
+  public countCreated: number=0;
   public error:        string  = "";
   public responseToDo!: any;
   public responseDone!: any;
+  public responseCreated!: any;
   public disabledPrevToDo: boolean=true;
   public disabledNextToDo: boolean=false;
   public disabledPrevDone: boolean=true;
   public disabledNextDone: boolean=false;
+  public disabledPrevCreated: boolean=true;
+  public disabledNextCreated: boolean=false;
   public columnNames!: string[];
+
 
 
 
@@ -41,6 +45,7 @@ export class HomeAdminComponent implements OnInit {
 
     this.getToDoSurveys();
     this.getDoneSurveys();
+    this.getCreatedSurveys();
   }
 
   ///////////////////////////////GET SURVEYS TO DO WITH PAGINATION////////////////////////////////////////
@@ -52,8 +57,8 @@ export class HomeAdminComponent implements OnInit {
     this.ras.callApi(url+params , 'GET',null)
       .then((res) => {
         this.responseToDo = res;
-        this.columnNames = Object.keys(this.responseToDo[0]);
-        console.log(this.columnNames)
+        //this.columnNames = Object.keys(this.responseToDo[0]);
+        //console.log(this.columnNames)
       }).catch((err) => {
       this.error = "Something went WRONG!!";
     });
@@ -133,7 +138,7 @@ export class HomeAdminComponent implements OnInit {
     });
   }
 
-  goToPreviousPageDone() {
+  public async goToPreviousPageDone() {
     if (this.start<=0){
       this.disabledPrevDone=true;
       this.disabledNextDone=false;
@@ -144,7 +149,7 @@ export class HomeAdminComponent implements OnInit {
       this.start--;
       let url  = "http://localhost:8080/surveySpringBoot/api/SurveysDone";
       let params = "?start=" + (this.start*this.stepDone) + "&step=" + this.stepDone + "&mail=" + this.mail;
-      this.ras.callApi(url+params , 'GET',null)
+      await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
           //console.log(res);
           this.responseDone = res;
@@ -155,10 +160,10 @@ export class HomeAdminComponent implements OnInit {
     }
   }
 
-  goToNextPageDone() {
+  public async goToNextPageDone() {
     let urlCount  = "http://localhost:8080/surveySpringBoot/api/howManySurveysDone";
     let paramsCount = "?mail=" + this.mail;
-    this.ras.callApi(urlCount+paramsCount , 'GET',null)
+    await this.ras.callApi(urlCount+paramsCount , 'GET',null)
       .then((res) => {
         //console.log(res);
         this.countDone = res;
@@ -177,7 +182,7 @@ export class HomeAdminComponent implements OnInit {
       this.disabledNextDone=false;
       let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
       let params = "?start=" + (this.start*this.stepDone) + "&step=" + this.stepDone + "&mail=" + this.mail;
-      this.ras.callApi(url+params , 'GET',null)
+      await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
           console.log(res);
           this.responseToDo = res;
@@ -188,15 +193,84 @@ export class HomeAdminComponent implements OnInit {
     }
   }
 
+
+///////////////////////////////////GET SURVEYS CREATED////////////////////////////////////////////
+  public getCreatedSurveys( ) {
+
+    let url  = "http://localhost:8080/surveySpringBoot/api/surveysCreated";
+    let params = "?start="+this.start+"&step="+this.stepCreated+"&mail="+this.mail;
+    this.ras.callApi(url+params , 'GET',null)
+      .then((res) => {
+        this.responseCreated = res;
+      }).catch((err) => {
+      this.error = "Something went WRONG!!";
+    });
+  }
+
+
+  public async goToPreviousPageCreated() {
+    if (this.start<=0){
+      this.disabledPrevCreated=true;
+      this.disabledNextCreated=false;
+    }
+    else {
+      this.disabledNextCreated=false;
+      this.disabledPrevCreated=false;
+      this.start--;
+      let url  = "http://localhost:8080/surveySpringBoot/api/SurveysCreated";
+      let params = "?start=" + (this.start*this.stepCreated) + "&step=" + this.stepCreated + "&mail=" + this.mail;
+      await this.ras.callApi(url+params , 'GET',null)
+        .then((res) => {
+          //console.log(res);
+          this.responseCreated = res;
+        }).catch((err) => {
+        this.error = "Something went WRONG!!";
+        console.log(err);
+      });
+    }
+
+  }
+
+  public async goToNextPageCreated() {
+    let urlCount  = "http://localhost:8080/surveySpringBoot/api/howManySurveysCreated";
+    let paramsCount = "?mail=" + this.mail;
+    await this.ras.callApi(urlCount+paramsCount , 'GET',null)
+      .then((res) => {
+        //console.log(res);
+        this.countCreated = res;
+      }).catch((err) => {
+      this.error = "Something went WRONG!!";
+      console.log(err);
+    });
+
+    if (this.start >= ((this.countCreated/this.stepCreated)-1)){
+      this.disabledPrevCreated=false;
+      this.disabledNextCreated=true;
+    }
+    else{
+      this.start++;
+      this.disabledPrevCreated=false;
+      this.disabledNextCreated=false;
+      let url  = "http://localhost:8080/surveySpringBoot/api/surveysCreated";
+      let params = "?start=" + (this.start*this.stepCreated) + "&step=" + this.stepCreated + "&mail=" + this.mail;
+      await this.ras.callApi(url+params , 'GET',null)
+        .then((res) => {
+          console.log(res);
+          this.responseCreated = res;
+        }).catch((err) => {
+        this.error = "Something went WRONG!!";
+        console.log(err);
+      });
+    }
+
+  }
+
 ///////////////////////////////GO TO THE SURVEY////////////////////////////////////////
-  takeSurvey(id: any, name: any, description: string | string){
-    this._id = id;
-    this._name = name;
-    console.log(this._id);
+  takeSurvey(id: number, name: string, description: string | string){
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        "id":  this._id,
-        "name": this._name,
+        "id":  id,
+        "name": name,
         "description": description,
         "mail": this.mail,
         "is_admin": this.adm
@@ -228,6 +302,25 @@ export class HomeAdminComponent implements OnInit {
 //////////////////LOGOUT//////////////////////////////////////////
   logout() {
     this.router.navigateByUrl('');
+  }
+
+///////////////////////////// STATS ////////////////////////////////////////////////////
+  goToStats(id: number, name: string, description: string | string) {
+    console.log(id + ": " + name);
+    console.log("belle stats bro");
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        "id": id,
+        "name": name,
+        "description": description,
+        "mail":  this.mail,
+      },
+      skipLocationChange: false
+    };
+    this.router.navigate(
+      ['/survey-stats'],
+      navigationExtras
+    );
   }
 
 
