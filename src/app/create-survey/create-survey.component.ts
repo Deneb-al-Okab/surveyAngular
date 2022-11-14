@@ -58,7 +58,7 @@ public async getAllCategories() {
   }
   public async createSurvey() {
     this.error = "";
-    console.log("mail " + this.mail);
+    //console.log("mail " + this.mail);
     let cat = new Category(this.form.value.category, this.form.value.categoryname);
     let surv = new Survey(this.mail,cat,this.form.value.name,this.form.value.description,this.form.value.startdate,this.form.value.enddate);
     console.log(surv);
@@ -68,7 +68,7 @@ public async getAllCategories() {
         //this.response = res;
       }).catch((err) => {
         this.isVisible=true;
-        this.error = "Qualcosa è andato storto ";
+        this.error = "Qualcosa è andato storto";
       });
   }
 

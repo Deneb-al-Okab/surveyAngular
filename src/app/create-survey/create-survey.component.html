@@ -9,11 +9,6 @@
         <mat-option  value="{{resp.id}}">{{resp.name}}</mat-option>
       </ng-container>
     </mat-select>
-    <mat-select formControlName="categoryname">
-      <ng-container *ngFor="let resp of this.response">
-        <mat-option  value="{{resp.name}}">{{resp.name}}</mat-option>
-      </ng-container>
-    </mat-select>
   </mat-form-field>
   <br>
   <mat-form-field appearance="fill">
