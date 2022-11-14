@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {RestApiService} from "../services/rest-api.service";
 import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {coerceStringArray} from "@angular/cdk/coercion";
@@ -13,20 +13,23 @@ import { Category } from '../objects/Survey'
   styleUrls: ['./create-survey.component.css']
 })
  export class CreateSurveyComponent implements OnInit {
-   public form!:           FormGroup;
+   public form!:           FormGroup; // FORM DEL SURVEY
   public error:           string  = "";
   public response: any;
   public myjson!: any;
   isVisible: boolean= false;
-
-
   public mail: any;
+  public question_cat: any;
+  // FORM DI QA
+  formQA = this.fb.group({
+      questions: this.fb.array([
+      ])
+})
+  public answers_all: any;
 
-
-  constructor(private _formBuilder: FormBuilder,
+  constructor(private fb: FormBuilder,
               private ras: RestApiService,private router: Router,
               private route: ActivatedRoute) {
-
   }
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -42,20 +45,62 @@ import { Category } from '../objects/Survey'
       this.mail = params["mail"];
     });
     this.getAllCategories();
+    this.getAllAnswers();
+  }
+  get questions() {
+    return this.formQA.controls["questions"] as FormArray;
+  }
+  getAnswers(index: number) {
+    return this.formQA.get(`questions.${index}.answers`) as FormArray;
+  }
+  addQuestion() {
+    const questionForm = this.fb.group({
+      id_cat: [this.form.value.category, Validators.required],
+      question: ['', Validators.required],
+      answers: this.fb.array([
+      ])
+    });
+    this.questions.push(questionForm);
+  }
+  addAnswer(index: number) {
+    const answerForm = this.fb.group({
+      answers: this.fb.array([
+      ])
+    });
+    let answerstemp = this.getAnswers(index);
+    answerstemp.push(answerForm);
+  }
+  deleteQuestion(lessonIndex: number) {
+    this.questions.removeAt(lessonIndex);
   }
 
-
-public async getAllCategories() {
-    this.error = "";
-
+  public async getAllAnswers() {
+    await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/answers', 'GET',null)
+      .then((res) => {
+        this.answers_all = res;
+      }).catch((err) => {
+        console.log(err);
+      });
+  }
+  public async getAllCategories() {
     await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/categories', 'GET',null)
       .then((res) => {
         this.response = res;
       }).catch((err) => {
-
-        this.error = "Qualcosa è andato storto ";
+        console.log(err);
       });
   }
+  public async getQuestionbyIDCat() {
+    let id_cat = this.form.value.category ;
+    let url = "http://localhost:8080/surveySpringBoot/api/category-questions?id=" + id_cat;
+    await this.ras.callApi(url, 'GET',null)
+      .then((res) => {
+        this.question_cat = res;
+      }).catch((err) => {
+        console.log(err);
+      });
+  }
+
   public async createSurvey() {
     this.error = "";
     //console.log("mail " + this.mail);

@@ -1,6 +1,8 @@
 <button class="nav_button" mat-button (click)="backHome()">BACK</button>
 
 <h3>Hi {{this.mail}}, create your Survey</h3>
+<mat-stepper [linear]="true" #stepper>
+  <mat-step >
 <form [formGroup]="form">
   <mat-form-field >
     <mat-label>Category</mat-label>
@@ -32,7 +34,59 @@
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>
 </form>
-<div>
-  <button class="activebutton" mat-button (click)="createSurvey()">SUBMIT</button>
-</div>
+    <div>
+      <button mat-button matStepperNext (click)="getQuestionbyIDCat()">Next</button>
+    </div>
+  </mat-step>
+<!--  QUI COPIATO MALE DA BLOG ANGULAR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
+  <mat-step >
+      <h3>Add Course Lessons:</h3>
+      <div  [formGroup]="formQA">
+        <div  formArrayName="questions">
+<!--          FACCIO IL FOR TRA QUANTE QUESTION IN ARRAYLIST CI SON-->
+<!--              QUI ENTRO DENTRO LA SPECIFICA DOAMNDA I-ESIMA-->
+          <ng-container *ngFor="let questionForm of questions.controls; let i = index">
+            <div  [formGroupName]="i">
+              <mat-form-field  appearance="fill">
+                <mat-label>Question</mat-label>
+                <mat-select formControlName="question">
+<!--                  SEMPLICE LOOP SU TUTTE LE DOMANDE -->
+                  <ng-container *ngFor="let question of this.question_cat">
+                  <mat-option  value="{{question.id}}">{{question.question}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+              <button mat-mini-fab (click)="addAnswer(i)">
+                <mat-icon class="add-course-btn">add</mat-icon>
+              </button>
+<!--              DENTRO LA DOMANDA I-ESIMA CREO RISPOSTE -->
+              <ng-container formArrayName="answers" *ngFor="let answer of this.question_cat; let j = index">
+              <mat-form-field  appearance="fill">
+                <mat-label>Answers</mat-label>
+                <mat-select formControlName="answers">
+                  <ng-container *ngFor="let answers of this.answers_all">
+                    <mat-option  value="{{answers.id}}">{{answers.answer}}</mat-option>
+                  </ng-container>
+                </mat-select>
+              </mat-form-field>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+        <button mat-mini-fab (click)="addQuestion()">
+          <mat-icon class="add-course-btn">add</mat-icon>
+        </button>
+      </div>
+      <button mat-button matStepperPrevious>Back</button>
+    <pre>
+  {{ form.value | json }}
+</pre>
+    <pre>
+  {{ formQA.value | json }}
+</pre>
+  </mat-step>
+</mat-stepper>
 
+<!--<div>
+  <button class="activebutton" mat-button (click)="createSurvey()">SUBMIT</button>
+</div>-->

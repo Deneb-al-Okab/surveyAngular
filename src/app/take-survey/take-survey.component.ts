@@ -55,7 +55,7 @@ export class TakeSurveyComponent implements OnInit {
     })
     await this.readSurvey(this.id);
     // Faccio loop su this.questions per creare FormArray di dimensione giusta
-    let element: keyof typeof this.responseQA;
+    let element: keyof typeof this.questions;
     for (element in this.questions) {
       (this.form.get('QAS') as FormArray).push(this.addQAS());
     }
@@ -73,7 +73,7 @@ export class TakeSurveyComponent implements OnInit {
 
   public async readSurvey(id: any){
     this._id = id;
-    // console.log("ID = " + this._id);
+
     this.error = "";
     await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/readSurvey?id='+this._id, 'GET', null)
       .then((res) => {
@@ -127,7 +127,7 @@ export class TakeSurveyComponent implements OnInit {
         this.error = "Something went WRONG!!";
         console.log(err);
       });
-    // console.log(this.questions);
+
   }
 
   public async submitSurvey() {
@@ -145,7 +145,6 @@ export class TakeSurveyComponent implements OnInit {
       if(this.isVisible == 2){
         return;
       }
-      console.log("SOno andato avanti");
       //FACCIO CHIAMATA PER SAPERE ID SUB_SURVEY APPENA INVIATO
       let url = "http://localhost:8080/surveySpringBoot/api/get-sub-survey?idSurvey=" + this.id + "&idMail=" + this.mail;
       await this.ras.callApi(url, 'GET', null)
