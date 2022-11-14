@@ -138,7 +138,7 @@ export class HomeUserComponent implements OnInit {
       this.disabledNextDone=false;
       this.disabledPrevDone=false;
       this.start--;
-      let url  = "http://localhost:8080/surveySpringBoot/api/SurveysDone";
+      let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone";
       let params = "?start=" + (this.start*this.stepDone) + "&step=" + this.stepDone + "&mail=" + this.mail;
       this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
@@ -171,7 +171,7 @@ export class HomeUserComponent implements OnInit {
       this.start++;
       this.disabledPrevDone=false;
       this.disabledNextDone=false;
-      let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
+      let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone";
       let params = "?start=" + (this.start*this.stepDone) + "&step=" + this.stepDone + "&mail=" + this.mail;
       this.ras.callApi(url+params , 'GET',null)
         .then((res) => {

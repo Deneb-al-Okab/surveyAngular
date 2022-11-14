@@ -50,7 +50,7 @@ export class HomeAdminComponent implements OnInit {
 
   ///////////////////////////////GET SURVEYS TO DO WITH PAGINATION////////////////////////////////////////
   public getToDoSurveys( ) {
-
+    this.start = 0;
     let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
     let params = "?start="+this.start+"&step="+this.stepToDo+"&mail="+this.mail;
     console.log(this.start);
@@ -127,6 +127,7 @@ export class HomeAdminComponent implements OnInit {
 
   ///////////////////////////////GET SURVEYS DONE WITH PAGINATION////////////////////////////////////////
   public getDoneSurveys( ) {
+    this.start=0;
     let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone";
     let params = "?start="+this.start+"&step="+this.stepDone+"&mail="+this.mail;
     this.ras.callApi(url+params , 'GET',null)
@@ -147,7 +148,7 @@ export class HomeAdminComponent implements OnInit {
       this.disabledNextDone=false;
       this.disabledPrevDone=false;
       this.start--;
-      let url  = "http://localhost:8080/surveySpringBoot/api/SurveysDone";
+      let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone";
       let params = "?start=" + (this.start*this.stepDone) + "&step=" + this.stepDone + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
@@ -180,7 +181,7 @@ export class HomeAdminComponent implements OnInit {
       this.start++;
       this.disabledPrevDone=false;
       this.disabledNextDone=false;
-      let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
+      let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone";
       let params = "?start=" + (this.start*this.stepDone) + "&step=" + this.stepDone + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
@@ -196,6 +197,7 @@ export class HomeAdminComponent implements OnInit {
 
 ///////////////////////////////////GET SURVEYS CREATED////////////////////////////////////////////
   public getCreatedSurveys( ) {
+    this.start = 0;
 
     let url  = "http://localhost:8080/surveySpringBoot/api/surveysCreated";
     let params = "?start="+this.start+"&step="+this.stepCreated+"&mail="+this.mail;
@@ -217,7 +219,7 @@ export class HomeAdminComponent implements OnInit {
       this.disabledNextCreated=false;
       this.disabledPrevCreated=false;
       this.start--;
-      let url  = "http://localhost:8080/surveySpringBoot/api/SurveysCreated";
+      let url  = "http://localhost:8080/surveySpringBoot/api/surveysCreated";
       let params = "?start=" + (this.start*this.stepCreated) + "&step=" + this.stepCreated + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
