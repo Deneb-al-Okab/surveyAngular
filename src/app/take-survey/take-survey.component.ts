@@ -8,6 +8,10 @@ import {FormControl,
   FormBuilder,
   FormArray,
   Validators} from '@angular/forms';
+import { SubSurvey } from '../objects/SubSurvey'
+import { SubAnswer } from '../objects/SubSurvey'
+import {coerceStringArray} from "@angular/cdk/coercion";
+
 
 
 @Component({
@@ -27,11 +31,15 @@ export class TakeSurveyComponent implements OnInit {
   private is_adm!: number;
   public questions: any;
   public QASForm: any;
+  isVisible: number = 0;
 
   //CREo form con un FormArray QAS (question answer Survey)
   form =  this.fb.group({
     QAS:  this.fb.array([]),
   });
+  private answers: any;
+  private id_sub: any;
+
 
   constructor(private ras: RestApiService, private route: ActivatedRoute,
               private router: Router,private fb: FormBuilder) {
@@ -53,27 +61,25 @@ export class TakeSurveyComponent implements OnInit {
     }
   }
   //FUnzione add da inizializzare subito e get per prendere dopo
-   addQAS(): FormGroup {
+  public  addQAS(): FormGroup {
      const QASForm = this.fb.group({
        id_qa: ['', Validators.required],
      });
      return QASForm;
   }
-  getQAS(){
+  public getQAS(){
     return this.form.controls["QAS"] as FormArray;
   }
 
   public async readSurvey(id: any){
     this._id = id;
-    console.log("ID = " + this._id);
+    // console.log("ID = " + this._id);
     this.error = "";
     await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/readSurvey?id='+this._id, 'GET', null)
       .then((res) => {
         this.responseQA = res;
         this.questions = new Array<Question>();
-        // this.questions = new QuestionList(moment);
         let element: keyof typeof this.responseQA;
-        // let element2: keyof typeof this.questions;
         let index = 0;
         //CREO UN OGGETTO BASTO SU QA SURVEY SENZA RIPETIZIONI DI Q
         //PRIMO FOR SU TUTTI I QA RICEVUTI
@@ -121,13 +127,57 @@ export class TakeSurveyComponent implements OnInit {
         this.error = "Something went WRONG!!";
         console.log(err);
       });
-    console.log(this.questions);
+    // console.log(this.questions);
   }
 
-  public submitSurvey(){
-    console.log("QUAS ARRAY: ");
-    console.log("QUAS ARRAY:  getQUS()");
-    console.log(this.getQAS());
+  public async submitSurvey() {
+    this.error = "";
+    let sub = new SubSurvey(this.id, this.mail);
+    // FACCIO PRIMA IL SUBMIT DI SUBMITTED SUVEY
+
+      await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/submitted-survey', 'POST', sub)
+        .then((res) => {
+        }).catch((err) => {
+          console.log("Qualcosa è andato storto sub_survey");
+          console.log(err);
+          this.isVisible = 2;
+        });
+      if(this.isVisible == 2){
+        return;
+      }
+      console.log("SOno andato avanti");
+      //FACCIO CHIAMATA PER SAPERE ID SUB_SURVEY APPENA INVIATO
+      let url = "http://localhost:8080/surveySpringBoot/api/get-sub-survey?idSurvey=" + this.id + "&idMail=" + this.mail;
+      await this.ras.callApi(url, 'GET', null)
+        .then((res) => {
+          this.id_sub = res.id;
+
+        }).catch((err) => {
+          console.log("Qualcosa è andato storto get-sub-sruvey");
+          console.log(err);
+          this.isVisible = 2;
+
+        });
+    if(this.isVisible == 2){
+      return;
+    }
+      // CREO UN ARRAY DI SUBANSWER E POI LO INVIO
+      let arrayControl = this.form.get('QAS') as FormArray;
+      let arrayQAS = arrayControl.value;
+      let element: keyof typeof arrayQAS;
+      this.answers = new Array<SubAnswer>();
+      for (element in arrayQAS) {
+        let newAnsw = new SubAnswer(this.id_sub, arrayQAS[element].id_qa);
+        this.answers.push(newAnsw);
+      }
+      await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/submitted-answers', 'POST', this.answers)
+        .then((res) => {
+          this.isVisible = 1;
+        }).catch((err) => {
+          console.log("Qualcosa è andato storto sub_answers");
+          console.log(err);
+          this.isVisible = 2;
+        });
   }
 
   backHome(){

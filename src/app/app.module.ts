@@ -29,8 +29,8 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatNativeDateModule} from '@angular/material/core';
 import { TakeSurveyComponent } from './take-survey/take-survey.component';
 import {MatTableModule} from "@angular/material/table";
-import {OnCreate} from "./take-survey/OnCreate";
 import { SurveyStatsComponent } from './survey-stats/survey-stats.component';
+
 
 @NgModule({
   declarations: [
@@ -43,7 +43,6 @@ import { SurveyStatsComponent } from './survey-stats/survey-stats.component';
     DialogTemplateComponent,
     CreateSurveyComponent,
     TakeSurveyComponent,
-    OnCreate,
     SurveyStatsComponent
   ],
   imports: [

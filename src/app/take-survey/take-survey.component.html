@@ -17,8 +17,10 @@
       </mat-radio-group>
     </ng-container>
   <br>
-  <button type="submit">Submit</button>
+  <button type="submit" *ngIf="this.isVisible == 0">Submit</button>
 </form>
-<pre>
+<p *ngIf="this.isVisible == 2">Something went wrong</p>
+<p *ngIf="this.isVisible == 1">Survey submitted correctly</p>
+<!--<pre>
   {{ form.value | json }}
-</pre>
+</pre>-->
