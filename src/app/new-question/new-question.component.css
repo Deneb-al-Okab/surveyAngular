@@ -1,0 +1,76 @@
+.activebutton {
+  box-shadow: inset 0 1px 0 0 #dcecfb;
+  background: #9EFF88 linear-gradient(to bottom, #bddbfa 5%, #27D100 100%);
+  border: 1px solid #6E57BB;
+  color: #000000;
+  text-shadow: 0 1px 0 #528ecc;
+}
+.cancelbtn {
+  box-shadow: inset 0 1px 0 0 #dcecfb;
+  background: #FB664E linear-gradient(to bottom, #bddbfa 5%, #FD2300 100%);
+  border: 1px solid #6E57BB;
+  color: #000000;
+  text-shadow: 0 1px 0 #528ecc;
+}
+
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.button {
+  box-shadow: inset 0 1px 0 0 #FCC6FF;
+  background: #F78EFD linear-gradient(to bottom, #C78EFD 5%, #B129FE 100%);
+  border-radius: 3px;
+  border: 1px solid #580E81;
+  display: inline-block;
+  cursor: pointer;
+  color: #000000;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 5px 20px;
+  text-decoration: none;
+  outline: 0;
+}
+
+.full-page{
+  text-align: center;
+}
+
+.login-card {
+  margin: auto;
+  width: 90%;
+  height: 60%;
+}
+
+.new_question-field {
+  width: 100%;
+}
+
+.login-button {
+  cursor: pointer;
+  width:  30%;
+  text-transform: uppercase;
+}
+
+.login-error {
+  padding-bottom: 10px;
+}
+
+.mat-dialog-content {
+  display:    block;
+  margin:     0;
+  padding:    0;
+  max-height: 100%;
+  height:     80%;
+  width: 100%;
+}

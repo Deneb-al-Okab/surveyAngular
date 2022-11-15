@@ -51,7 +51,6 @@ export class HomeAdminComponent implements OnInit {
     this.start = 0;
     let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
     let params = "?start="+this.start+"&step="+this.step+"&mail="+this.mail;
-    console.log(this.start);
     this.ras.callApi(url+params , 'GET',null)
       .then((res) => {
         this.responseToDo = res;
@@ -63,9 +62,7 @@ export class HomeAdminComponent implements OnInit {
   }
 
   public async goToPreviousPageToDo() {
-    console.log(this.start);
     if (this.start<=0){
-      console.log(this.start);
       this.disabledPrevToDo=true;
       this.disabledNextToDo=false;
     }
@@ -73,7 +70,6 @@ export class HomeAdminComponent implements OnInit {
       this.start--;
       this.disabledNextToDo=false;
       this.disabledPrevToDo=false;
-      console.log(this.start);
       let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
       let params = "?start=" + (this.start*this.step) + "&step=" + this.step + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
@@ -88,7 +84,6 @@ export class HomeAdminComponent implements OnInit {
   }
 
   public async goToNextPageToDo() {
-    console.log(this.start);
     let urlCount  = "http://localhost:8080/surveySpringBoot/api/howManySurveysToDo";
     let paramsCount = "?mail=" + this.mail;
     await this.ras.callApi(urlCount+paramsCount , 'GET',null)
@@ -100,13 +95,11 @@ export class HomeAdminComponent implements OnInit {
     });
 
     if (this.start >= ((this.countToDo/this.step)-1)){
-      console.log(this.start);
       this.disabledPrevToDo=false;
       this.disabledNextToDo=true;
     }
     else{
       this.start++;
-      console.log(this.start);
       this.disabledPrevToDo=false;
       this.disabledNextToDo=false;
       let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
@@ -130,7 +123,6 @@ export class HomeAdminComponent implements OnInit {
     let params = "?start="+this.start+"&step="+this.step+"&mail="+this.mail;
     this.ras.callApi(url+params , 'GET',null)
       .then((res) => {
-        console.log(res);
         this.responseDone = res;
       }).catch((err) => {
       this.error = "Something went WRONG!!";
@@ -150,7 +142,6 @@ export class HomeAdminComponent implements OnInit {
       let params = "?start=" + (this.start*this.step) + "&step=" + this.step + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
-          //console.log(res);
           this.responseDone = res;
         }).catch((err) => {
         this.error = "Something went WRONG!!";
@@ -164,7 +155,6 @@ export class HomeAdminComponent implements OnInit {
     let paramsCount = "?mail=" + this.mail;
     await this.ras.callApi(urlCount+paramsCount , 'GET',null)
       .then((res) => {
-        //console.log(res);
         this.countDone = res;
       }).catch((err) => {
       this.error = "Something went WRONG!!";

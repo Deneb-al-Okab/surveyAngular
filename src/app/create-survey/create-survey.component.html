@@ -2,7 +2,7 @@
 
 <h3>Hi {{this.mail}}, create your Survey</h3>
 
-<button class="" mat-button (click)="createQuestion()">NEW QUESTION</button>
+
 
 
 <mat-stepper [linear]="true" #stepper>
@@ -44,7 +44,8 @@
   </mat-step>
 <!--  QUI COPIATO MALE DA BLOG ANGULAR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
   <mat-step >
-      <h3>Add Course Lessons:</h3>
+      <h3>Add Questions and Answers:</h3>
+    <button class="add_button" mat-button (click)="createQuestion()">NEW QUESTION</button>
       <div  [formGroup]="formQA">
         <div  formArrayName="questions">
 <!--          FACCIO IL FOR TRA QUANTE QUESTION IN ARRAYLIST CI SON-->
@@ -82,7 +83,7 @@
             </div>
           </ng-container>
         </div>
-        <button  (click)="addQuestion()">
+        <button mat-button class="add_button" (click)="addQuestion()">
           ADD QUESTION
 <!--          <mat-icon class="add-course-btn">add</mat-icon>-->
         </button>

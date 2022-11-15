@@ -143,12 +143,14 @@ import {NewQuestionComponent} from "../new-question/new-question.component";
 
   createQuestion() {
     const config = new MatDialogConfig();
+    console.log(this.form.value.category);
 
     config.disableClose = true;
     config.id           = "new-question-component";
     config.height       = "450px";
     config.width        = "650px";
-    config.data         = {title: "Create a new question", component: 'new-question'};
+    config.data         = {title: "Create a new question", component: 'new-question',
+                          category: this.form.value.category};
 
     const dialogRef = this.dialog.open(NewQuestionComponent,config);
 
