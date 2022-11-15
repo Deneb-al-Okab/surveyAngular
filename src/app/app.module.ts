@@ -31,6 +31,7 @@ import { TakeSurveyComponent } from './take-survey/take-survey.component';
 import {MatTableModule} from "@angular/material/table";
 import { SurveyStatsComponent } from './survey-stats/survey-stats.component';
 import { NewQuestionComponent } from './new-question/new-question.component';
+import { NewAnswerComponent } from './new-answer/new-answer.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { NewQuestionComponent } from './new-question/new-question.component';
     CreateSurveyComponent,
     TakeSurveyComponent,
     SurveyStatsComponent,
-    NewQuestionComponent
+    NewQuestionComponent,
+    NewAnswerComponent
   ],
   imports: [
     BrowserModule,

@@ -12,10 +12,11 @@ import {forms} from "@angular/core/schematics/migrations/typed-forms/util";
 })
 export class NewQuestionComponent implements OnInit {
   public form!: FormGroup;
+  public error: string="";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
     title: string
-    category: string},
+    category: number},
     public dialogRef: MatDialogRef<CreateSurveyComponent>, private ras: RestApiService) { }
 
   ngOnInit(): void {
@@ -25,10 +26,16 @@ export class NewQuestionComponent implements OnInit {
     });
   }
 
-  public newQuestion() {
-    console.log(this.form.value)
-    this.dialogRef.close();
-
+  public async newQuestion() {
+    console.log(JSON.stringify(this.form.value));
+    await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/createQuestion', 'POST', this.form.value)
+      .then((res) => {
+        alert("Question created correctly!");
+        this.dialogRef.close(res);
+      }).catch((err) => {
+        console.log(err);
+        this.error = "Something went WRONG!";
+      });
   }
 
   public close() {

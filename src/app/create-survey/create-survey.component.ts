@@ -11,6 +11,7 @@ import {LoginComponent} from "../login/login.component";
 import {NewQuestionComponent} from "../new-question/new-question.component";
 import { QuestionAnswer } from '../objects/QuestionAnswer'
 import {Question} from "../objects/QASurvey";
+import {NewAnswerComponent} from "../new-answer/new-answer.component";
 
 @Component({
   selector: 'app-create-survey',
@@ -195,7 +196,24 @@ import {Question} from "../objects/QASurvey";
     const dialogRef = this.dialog.open(NewQuestionComponent,config);
 
     dialogRef.afterClosed().subscribe((result) =>{
+      this.getQuestionbyIDCat();
+    });
 
+  }
+
+  createAnswer() {
+    const config = new MatDialogConfig();
+
+    config.disableClose = true;
+    config.id           = "new-answer-component";
+    config.height       = "350px";
+    config.width        = "400px";
+    config.data         = {title: "Create a new answer", component: 'new-answer'};
+
+    const dialogRef = this.dialog.open(NewAnswerComponent,config);
+
+    dialogRef.afterClosed().subscribe((result) =>{
+      this.getAllAnswers();
     });
 
   }

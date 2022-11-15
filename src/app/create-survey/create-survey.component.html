@@ -46,6 +46,7 @@
   <mat-step >
       <h3>Add Questions and Answers:</h3>
     <button class="add_button" mat-button (click)="createQuestion()">NEW QUESTION</button>
+    <button class="add_button" mat-button (click)="createAnswer()">NEW ANSWER</button>
       <div  [formGroup]="formQA">
         <div  formArrayName="questions">
 <!--          FACCIO IL FOR TRA QUANTE QUESTION IN ARRAYLIST CI SON-->
