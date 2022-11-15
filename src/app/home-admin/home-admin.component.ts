@@ -14,9 +14,7 @@ export class HomeAdminComponent implements OnInit {
 
   private adm:         number=1;
   private start:       number=0;
-  private stepToDo:    number=3;
-  private stepDone:    number=3;
-  private stepCreated:    number=3;
+  private step:        number=3;
   public countToDo:    number=0;
   public countDone:    number=0;
   public countCreated: number=0;
@@ -52,7 +50,7 @@ export class HomeAdminComponent implements OnInit {
   public getToDoSurveys( ) {
     this.start = 0;
     let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
-    let params = "?start="+this.start+"&step="+this.stepToDo+"&mail="+this.mail;
+    let params = "?start="+this.start+"&step="+this.step+"&mail="+this.mail;
     console.log(this.start);
     this.ras.callApi(url+params , 'GET',null)
       .then((res) => {
@@ -77,7 +75,7 @@ export class HomeAdminComponent implements OnInit {
       this.disabledPrevToDo=false;
       console.log(this.start);
       let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
-      let params = "?start=" + (this.start*this.stepToDo) + "&step=" + this.stepToDo + "&mail=" + this.mail;
+      let params = "?start=" + (this.start*this.step) + "&step=" + this.step + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
           this.responseToDo = res;
@@ -101,7 +99,7 @@ export class HomeAdminComponent implements OnInit {
       console.log(err);
     });
 
-    if (this.start >= ((this.countToDo/this.stepToDo)-1)){
+    if (this.start >= ((this.countToDo/this.step)-1)){
       console.log(this.start);
       this.disabledPrevToDo=false;
       this.disabledNextToDo=true;
@@ -112,7 +110,7 @@ export class HomeAdminComponent implements OnInit {
       this.disabledPrevToDo=false;
       this.disabledNextToDo=false;
       let url  = "http://localhost:8080/surveySpringBoot/api/surveysToDo";
-      let params = "?start=" + (this.start*this.stepToDo) + "&step=" + this.stepToDo + "&mail=" + this.mail;
+      let params = "?start=" + (this.start*this.step) + "&step=" + this.step + "&mail=" + this.mail;
       this.error = "";
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
@@ -129,7 +127,7 @@ export class HomeAdminComponent implements OnInit {
   public getDoneSurveys( ) {
     this.start=0;
     let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone";
-    let params = "?start="+this.start+"&step="+this.stepDone+"&mail="+this.mail;
+    let params = "?start="+this.start+"&step="+this.step+"&mail="+this.mail;
     this.ras.callApi(url+params , 'GET',null)
       .then((res) => {
         console.log(res);
@@ -149,7 +147,7 @@ export class HomeAdminComponent implements OnInit {
       this.disabledPrevDone=false;
       this.start--;
       let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone";
-      let params = "?start=" + (this.start*this.stepDone) + "&step=" + this.stepDone + "&mail=" + this.mail;
+      let params = "?start=" + (this.start*this.step) + "&step=" + this.step + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
           //console.log(res);
@@ -173,7 +171,7 @@ export class HomeAdminComponent implements OnInit {
       console.log(err);
     });
 
-    if (this.start >= ((this.countDone/this.stepDone)-1)){
+    if (this.start >= ((this.countDone/this.step)-1)){
       this.disabledPrevDone=false;
       this.disabledNextDone=true;
     }
@@ -182,11 +180,11 @@ export class HomeAdminComponent implements OnInit {
       this.disabledPrevDone=false;
       this.disabledNextDone=false;
       let url  = "http://localhost:8080/surveySpringBoot/api/surveysDone";
-      let params = "?start=" + (this.start*this.stepDone) + "&step=" + this.stepDone + "&mail=" + this.mail;
+      let params = "?start=" + (this.start*this.step) + "&step=" + this.step + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
           console.log(res);
-          this.responseToDo = res;
+          this.responseDone = res;
         }).catch((err) => {
         this.error = "Something went WRONG!!";
         console.log(err);
@@ -200,7 +198,7 @@ export class HomeAdminComponent implements OnInit {
     this.start = 0;
 
     let url  = "http://localhost:8080/surveySpringBoot/api/surveysCreated";
-    let params = "?start="+this.start+"&step="+this.stepCreated+"&mail="+this.mail;
+    let params = "?start="+this.start+"&step="+this.step+"&mail="+this.mail;
     this.ras.callApi(url+params , 'GET',null)
       .then((res) => {
         this.responseCreated = res;
@@ -220,7 +218,7 @@ export class HomeAdminComponent implements OnInit {
       this.disabledPrevCreated=false;
       this.start--;
       let url  = "http://localhost:8080/surveySpringBoot/api/surveysCreated";
-      let params = "?start=" + (this.start*this.stepCreated) + "&step=" + this.stepCreated + "&mail=" + this.mail;
+      let params = "?start=" + (this.start*this.step) + "&step=" + this.step + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
           //console.log(res);
@@ -245,7 +243,7 @@ export class HomeAdminComponent implements OnInit {
       console.log(err);
     });
 
-    if (this.start >= ((this.countCreated/this.stepCreated)-1)){
+    if (this.start >= ((this.countCreated/this.step)-1)){
       this.disabledPrevCreated=false;
       this.disabledNextCreated=true;
     }
@@ -254,7 +252,7 @@ export class HomeAdminComponent implements OnInit {
       this.disabledPrevCreated=false;
       this.disabledNextCreated=false;
       let url  = "http://localhost:8080/surveySpringBoot/api/surveysCreated";
-      let params = "?start=" + (this.start*this.stepCreated) + "&step=" + this.stepCreated + "&mail=" + this.mail;
+      let params = "?start=" + (this.start*this.step) + "&step=" + this.step + "&mail=" + this.mail;
       await this.ras.callApi(url+params , 'GET',null)
         .then((res) => {
           console.log(res);
