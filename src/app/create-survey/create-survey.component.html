@@ -6,7 +6,7 @@
 
 
 <mat-stepper [linear]="true" #stepper (animationDone)="getQuestionbyIDCat()">
-  <mat-step >
+  <mat-step [completed]="form.valid">
 <form [formGroup]="form">
   <mat-form-field >
     <mat-label>Category</mat-label>
@@ -39,7 +39,7 @@
   <mat-date-range-picker #picker></mat-date-range-picker>
 </form>
     <div>
-      <button mat-button matStepperNext (click)="getQuestionbyIDCat()">Next</button>
+      <button mat-button matStepperNext (click)="getQuestionbyIDCat()" [disabled]="!form.valid">Next</button>
     </div>
   </mat-step>
 <!--  QUI COPIATO MALE DA BLOG ANGULAR AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA-->
@@ -88,7 +88,7 @@
 <!--          <mat-icon class="add-course-btn">add</mat-icon>-->
         </button>
       </div>
-    <button mat-button *ngIf="this.isVisible == 0" (click)="createSurvey() " >Submit</button>
+    <button mat-button *ngIf="this.isVisible == 0" (click)="createSurvey()" [disabled]="!form.valid" >Submit</button>
     <p *ngIf="this.isVisible == 2">Something went wrong</p>
     <p *ngIf="this.isVisible == 1">Survey submitted correctly</p>
     <button mat-button matStepperPrevious>Back</button>

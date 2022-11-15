@@ -40,7 +40,7 @@ import {Question} from "../objects/QASurvey";
     this.form = new FormGroup({
       name: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
-      categoryname: new FormControl('', [Validators.required]),
+      // categoryname: new FormControl('', ),
       description: new FormControl('', [Validators.required]),
       startdate: new FormControl('', [Validators.required]),
       enddate: new FormControl('', [Validators.required]),
