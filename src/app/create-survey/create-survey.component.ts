@@ -6,6 +6,9 @@ import {ActivatedRoute, NavigationExtras, Router} from "@angular/router";
 import {coerceStringArray} from "@angular/cdk/coercion";
 import { Survey } from '../objects/Survey'
 import { Category } from '../objects/Survey'
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import {LoginComponent} from "../login/login.component";
+import {NewQuestionComponent} from "../new-question/new-question.component";
 
 @Component({
   selector: 'app-create-survey',
@@ -28,8 +31,10 @@ import { Category } from '../objects/Survey'
   public answers_all: any;
 
   constructor(private fb: FormBuilder,
-              private ras: RestApiService,private router: Router,
-              private route: ActivatedRoute) {
+              private ras: RestApiService,
+              private router: Router,
+              private route: ActivatedRoute,
+              public dialog: MatDialog) {
   }
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -130,4 +135,20 @@ import { Category } from '../objects/Survey'
       );
     }
 
+  createQuestion() {
+    const config = new MatDialogConfig();
+
+    config.disableClose = true;
+    config.id           = "new-question-component";
+    config.height       = "450px";
+    config.width        = "650px";
+    config.data         = {title: "Create a new question", component: 'new-question'};
+
+    const dialogRef = this.dialog.open(NewQuestionComponent,config);
+
+    dialogRef.afterClosed().subscribe((result) =>{
+
+    });
+
+  }
 }

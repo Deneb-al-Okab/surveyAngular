@@ -1,6 +1,10 @@
 <button class="nav_button" mat-button (click)="backHome()">BACK</button>
 
 <h3>Hi {{this.mail}}, create your Survey</h3>
+
+<button class="" mat-button (click)="createQuestion()">NEW QUESTION</button>
+
+
 <mat-stepper [linear]="true" #stepper>
   <mat-step >
 <form [formGroup]="form">

@@ -30,7 +30,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { TakeSurveyComponent } from './take-survey/take-survey.component';
 import {MatTableModule} from "@angular/material/table";
 import { SurveyStatsComponent } from './survey-stats/survey-stats.component';
-import { CreateSurveyQaComponent } from './create-survey-qa/create-survey-qa.component';
+import { NewQuestionComponent } from './new-question/new-question.component';
 
 
 @NgModule({
@@ -45,7 +45,7 @@ import { CreateSurveyQaComponent } from './create-survey-qa/create-survey-qa.com
     CreateSurveyComponent,
     TakeSurveyComponent,
     SurveyStatsComponent,
-    CreateSurveyQaComponent
+    NewQuestionComponent
   ],
   imports: [
     BrowserModule,
