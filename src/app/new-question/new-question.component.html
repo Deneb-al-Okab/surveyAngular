@@ -8,6 +8,7 @@
         <mat-form-field class="new_question-field">
           <textarea matInput type="text" placeholder="Write your question" formControlName="question" onInput="this.value = this.value.toLowerCase()"></textarea>
         </mat-form-field>
+        <mat-error class="login-error">{{this.error}}</mat-error>
 
       </mat-card-content>
     </form>

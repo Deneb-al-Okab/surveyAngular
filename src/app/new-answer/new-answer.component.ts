@@ -11,7 +11,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class NewAnswerComponent implements OnInit {
   public form!: FormGroup;
-  private error: string="";
+  public error: string="";
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {
                 title: string },
@@ -29,8 +29,14 @@ export class NewAnswerComponent implements OnInit {
         alert("Answer created correctly!")
         this.dialogRef.close(res);
       }).catch((err) => {
-        console.log(err);
-        this.error = "Something went WRONG!";
+        if(err.status==409){
+          console.log(err);
+          this.error = "Already existing answer, please check.";
+        }
+        else{
+          this.error = "Something went WRONG!";
+        }
+
       });
 
   }

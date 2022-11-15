@@ -27,14 +27,19 @@ export class NewQuestionComponent implements OnInit {
   }
 
   public async newQuestion() {
-    console.log(JSON.stringify(this.form.value));
     await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/createQuestion', 'POST', this.form.value)
       .then((res) => {
         alert("Question created correctly!");
         this.dialogRef.close(res);
       }).catch((err) => {
-        console.log(err);
-        this.error = "Something went WRONG!";
+        if(err.status==409){
+          console.log(err);
+          this.error = "Already existing question, please select from ADD QUESTION.";
+        }
+        else{
+          this.error = "Something went WRONG!";
+        }
+
       });
   }
 

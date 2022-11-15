@@ -30,6 +30,7 @@ import {NewAnswerComponent} from "../new-answer/new-answer.component";
   public qas: any;
   public  newSurvey: any;
   public isVisible: number = 0;
+  public isVisibleDate: boolean=false;
 
   constructor(private fb: FormBuilder,
               private ras: RestApiService,
@@ -127,9 +128,12 @@ import {NewAnswerComponent} from "../new-answer/new-answer.component";
         this.newSurvey = res;
         //this.response = res;
       }).catch((err) => {
-        console.log("Errore in create survey");
+        console.log("Error in create survey");
         console.log(err);
         this.isVisible = 2;
+        if (err.status==403){
+          this.isVisibleDate=true;
+        }
       });
     if(this.isVisible == 2){
       return;
@@ -161,8 +165,18 @@ import {NewAnswerComponent} from "../new-answer/new-answer.component";
     await this.ras.callApi(url, 'POST',this.qas)
       .then((res) => {
         this.isVisible = 1;
+        let navigationExtras: NavigationExtras = {
+          queryParams: {
+            "mail":    this.mail,
+          },
+          skipLocationChange: false
+        };
+        this.router.navigate(
+          ['/home-admin'],
+          navigationExtras
+        );
       }).catch((err) => {
-        console.log("Errore in create QA");
+        console.log("Error in create QA");
         console.log(err);
         this.isVisible = 2;
       });

@@ -33,8 +33,8 @@
     <input matStartDate placeholder="Start date" formControlName="startdate">
     <input matEndDate placeholder="End date" formControlName="enddate">
   </mat-date-range-input>
-  <mat-hint>DD/MM/YYYY – DD/MM/YYYY</mat-hint>
-  <p *ngIf="this.isVisible">Non puoi</p>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <p *ngIf="this.isVisibleDate">You must set a right range of date </p>
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>
 </form>

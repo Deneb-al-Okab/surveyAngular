@@ -172,6 +172,24 @@ export class TakeSurveyComponent implements OnInit {
       await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/submitted-answers', 'POST', this.answers)
         .then((res) => {
           this.isVisible = 1;
+          let navigationExtras: NavigationExtras = {
+            queryParams: {
+              "mail":    this.mail,
+            },
+            skipLocationChange: false
+          };
+          if (this.is_adm == 0){
+            this.router.navigate(
+              ['/home-user'],
+              navigationExtras
+            )
+          }
+          else if (this.is_adm == 1){
+            this.router.navigate(
+              ['/home-admin'],
+              navigationExtras
+            );
+          }
         }).catch((err) => {
           console.log("Qualcosa è andato storto sub_answers");
           console.log(err);
