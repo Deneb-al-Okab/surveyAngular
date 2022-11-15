@@ -5,7 +5,7 @@
 <button class="" mat-button (click)="createQuestion()">NEW QUESTION</button>
 
 
-<mat-stepper [linear]="true" #stepper>
+<mat-stepper [linear]="true" >
   <mat-step >
 <form [formGroup]="form">
   <mat-form-field >
@@ -87,6 +87,7 @@
 <!--          <mat-icon class="add-course-btn">add</mat-icon>-->
         </button>
       </div>
+    <button mat-button (click)="createSurvey()" >Submit</button>
       <button mat-button matStepperPrevious>Back</button>
     <pre>
   {{ form.value | json }}
@@ -96,6 +97,7 @@
 </pre>
   </mat-step>
 </mat-stepper>
+
 
 <!--<div>
   <button class="activebutton" mat-button (click)="createSurvey()">SUBMIT</button>

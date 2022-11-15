@@ -2,9 +2,8 @@
 export class  QuestionAnswer{
 
   constructor(
-    public idCategory: string,
-    public question: string,
-    public answers: string[],
+    public id_question: string,
+    public id_answer: string,
   )
   { }
 }

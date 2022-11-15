@@ -9,6 +9,8 @@ import { Category } from '../objects/Survey'
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {LoginComponent} from "../login/login.component";
 import {NewQuestionComponent} from "../new-question/new-question.component";
+import { QuestionAnswer } from '../objects/QuestionAnswer'
+import {Question} from "../objects/QASurvey";
 
 @Component({
   selector: 'app-create-survey',
@@ -16,7 +18,8 @@ import {NewQuestionComponent} from "../new-question/new-question.component";
   styleUrls: ['./create-survey.component.css']
 })
  export class CreateSurveyComponent implements OnInit {
-   public form!:           FormGroup; // FORM DEL SURVEY
+  public form!:           FormGroup; // FORM DEL SURVEY
+  public formQA!:           FormGroup;
   public error:           string  = "";
   public response: any;
   public myjson!: any;
@@ -24,11 +27,10 @@ import {NewQuestionComponent} from "../new-question/new-question.component";
   public mail: any;
   public question_cat: any;
   // FORM DI QA
-  formQA = this.fb.group({
-      questions: this.fb.array([
-      ])
-})
+
   public answers_all: any;
+  public qas: any;
+  public  newSurvey: any;
 
   constructor(private fb: FormBuilder,
               private ras: RestApiService,
@@ -45,6 +47,9 @@ import {NewQuestionComponent} from "../new-question/new-question.component";
       startdate: new FormControl('', [Validators.required]),
       enddate: new FormControl('', [Validators.required]),
     });
+    this.formQA = this.fb.group({
+      questions: this.fb.array([])
+    })
 
     this.route.queryParams.subscribe(params=>{
       this.mail = params["mail"];
@@ -58,10 +63,10 @@ import {NewQuestionComponent} from "../new-question/new-question.component";
   getAnswers(empIndex:number) : FormArray {
     return this.questions.at(empIndex).get("answers") as FormArray
   }
-
+  // ESSENZIALE PER LE NESTED FORM
+  // https://www.tektutorialshub.com/angular/nested-formarray-example-add-form-fields-dynamically/
   addQuestion() {
     const questionForm = this.fb.group({
-      id_cat: [this.form.value.category, Validators.required],
       question: ['', Validators.required],
       answers: this.fb.array([
       ])
@@ -120,11 +125,41 @@ import {NewQuestionComponent} from "../new-question/new-question.component";
     console.log(surv);
     await this.ras.callApi('http://localhost:8080/surveySpringBoot/api/createSurvey', 'POST',surv)
       .then((res) => {
-        this.isVisible=false;
+        this.newSurvey = res;
         //this.response = res;
       }).catch((err) => {
-        this.isVisible=true;
-        this.error = "Qualcosa è andato storto";
+        console.log("Errore in create survey");
+        console.log(err);
+      });
+    this.createSurveyQA();
+
+  }
+
+  public async createSurveyQA() {
+    // PRIMA POPOLO UN ARRAY DI Question ANSWERS this.qas
+    this.qas = new Array<QuestionAnswer>();
+    let formTemp = this.formQA.value.questions;
+    let element!: keyof typeof this.formQA.value;
+/*    for (let i = 0; i < formTemp.length; i++) {
+      let newQ = formTemp[i].question;
+      console.log("newQ = ");
+      console.log(newQ);
+    }*/
+    for (element  in formTemp) {
+      let newQ = formTemp[element].question;
+      for (let i = 0; i < formTemp[element].answers.length; i++) {
+        let newA = formTemp[element].answers[i].answer;
+        let newQA = new QuestionAnswer(newQ,newA);
+        this.qas.push(newQA);
+      }
+    }
+    console.log(this.qas);
+    let url = "http://localhost:8080/surveySpringBoot/api/createQuestAns?id_survey=" + this.newSurvey.id;
+    await this.ras.callApi(url, 'POST',this.qas)
+      .then((res) => {
+      }).catch((err) => {
+        console.log("Errore in create QA");
+        console.log(err);
       });
   }
 
