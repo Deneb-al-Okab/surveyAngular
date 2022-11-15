@@ -24,7 +24,6 @@ export class SurveyStatsComponent implements OnInit {
       this.name = params["name"];
       this.description = params["description"];
       this.mail = params["mail"];
-
       this.getHowMany()
       //this.getStats();
 

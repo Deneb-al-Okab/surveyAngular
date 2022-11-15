@@ -23,14 +23,12 @@ import {Question} from "../objects/QASurvey";
   public error:           string  = "";
   public response: any;
   public myjson!: any;
-  isVisible: boolean= false;
   public mail: any;
   public question_cat: any;
-  // FORM DI QA
-
   public answers_all: any;
   public qas: any;
   public  newSurvey: any;
+  public isVisible: number = 0;
 
   constructor(private fb: FormBuilder,
               private ras: RestApiService,
@@ -130,7 +128,11 @@ import {Question} from "../objects/QASurvey";
       }).catch((err) => {
         console.log("Errore in create survey");
         console.log(err);
+        this.isVisible = 2;
       });
+    if(this.isVisible == 2){
+      return;
+    }
     this.createSurveyQA();
 
   }
@@ -157,10 +159,13 @@ import {Question} from "../objects/QASurvey";
     let url = "http://localhost:8080/surveySpringBoot/api/createQuestAns?id_survey=" + this.newSurvey.id;
     await this.ras.callApi(url, 'POST',this.qas)
       .then((res) => {
+        this.isVisible = 1;
       }).catch((err) => {
         console.log("Errore in create QA");
         console.log(err);
+        this.isVisible = 2;
       });
+
   }
 
   backHome(){

@@ -5,7 +5,7 @@
 
 
 
-<mat-stepper [linear]="true" >
+<mat-stepper [linear]="true" #stepper (animationDone)="getQuestionbyIDCat()">
   <mat-step >
 <form [formGroup]="form">
   <mat-form-field >
@@ -88,18 +88,18 @@
 <!--          <mat-icon class="add-course-btn">add</mat-icon>-->
         </button>
       </div>
-    <button mat-button (click)="createSurvey()" >Submit</button>
-      <button mat-button matStepperPrevious>Back</button>
-    <pre>
+    <button mat-button *ngIf="this.isVisible == 0" (click)="createSurvey() " >Submit</button>
+    <p *ngIf="this.isVisible == 2">Something went wrong</p>
+    <p *ngIf="this.isVisible == 1">Survey submitted correctly</p>
+    <button mat-button matStepperPrevious>Back</button>
+<!--    <pre>
   {{ form.value | json }}
 </pre>
     <pre>
   {{ formQA.value | json }}
-</pre>
+</pre>-->
   </mat-step>
 </mat-stepper>
-
-
 <!--<div>
   <button class="activebutton" mat-button (click)="createSurvey()">SUBMIT</button>
 </div>-->
